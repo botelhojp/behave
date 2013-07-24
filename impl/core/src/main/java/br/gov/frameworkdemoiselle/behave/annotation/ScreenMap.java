@@ -41,7 +41,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Anotação utilizada para marcar as páginas (telas) utilizadas nas estórias.
+ * Anotação utilizada para marcar as páginas (telas) utilizadas nas histórias.
  * 
  * @author SERPRO
  */
@@ -50,14 +50,13 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ScreenMap {
 
 	/**
-	 * Propriedade que determina o texto que irá na estórias para que a chamada
+	 * Propriedade que determina o texto que irá nas histórias para que a chamada
 	 * da página ocorra.
 	 */
 	public String name();
-	
+
 	/**
 	 * Propriedade que determina a localização base do location
-	 * @return
 	 */
 	public String base() default "";
 
