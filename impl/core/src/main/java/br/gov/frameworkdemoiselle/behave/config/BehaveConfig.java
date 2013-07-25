@@ -214,6 +214,11 @@ public class BehaveConfig {
 		return getProperty("behave.runner.screen.type");
 	}
 
+	// Pacote pai de classes anotadas com ScreenMap 
+	public static String getProperty_AnnotatedScreenMap() {
+		return getProperty("behave.annotation.screenMap", "");
+	}
+
 	/**
 	 * Exibe o valor das propriedades do DBehave caso o log esteja no modo debug
 	 */
