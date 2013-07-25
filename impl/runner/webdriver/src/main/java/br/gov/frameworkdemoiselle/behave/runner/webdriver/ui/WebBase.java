@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
+import br.gov.frameworkdemoiselle.behave.annotation.ElementLocatorType;
 import br.gov.frameworkdemoiselle.behave.annotation.ElementMap;
 import br.gov.frameworkdemoiselle.behave.annotation.ScreenMap;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
@@ -25,7 +27,15 @@ import br.gov.frameworkdemoiselle.behave.runner.ui.StateUI;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.util.ByConverter;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.util.Timer;
 
+/**
+ * 
+ * @author SERPRO
+ *
+ */
 public class WebBase extends MappedElement implements BaseUI {
+
+	// Milisegundos
+	private static final int ONE_SECOND = 1000;
 
 	public List<WebElement> getElements() {
 		List<WebElement> elements = new ArrayList<WebElement>();
@@ -51,6 +61,11 @@ public class WebBase extends MappedElement implements BaseUI {
 		return getElements().get(0).getText();
 	}
 
+	/**
+	 * Chamada ao Thread.sleep().
+	 * 
+	 * @param delay tempo em milisegundos.
+	 */
 	private static void waitThreadSleep(Long delay) {
 		try {
 			Thread.sleep(delay);
@@ -91,7 +106,7 @@ public class WebBase extends MappedElement implements BaseUI {
 				break;
 
 			default:
-				throw new RuntimeException("Opcao errada para metodo 'verifyStateUI'.");
+				throw new BehaveException("Opcao errada para metodo 'verifyStateUI'.");
 			}
 
 		}
@@ -104,8 +119,12 @@ public class WebBase extends MappedElement implements BaseUI {
 
 		verifyState(StateUI.ENABLE);
 		verifyState(StateUI.VISIBLE);
-		waitClickable(ByConverter.convert(getElementMap().locatorType(), getElementMap().locator()[index].toString()));
-		waitVisibility(ByConverter.convert(getElementMap().locatorType(), getElementMap().locator()[index].toString()));
+
+		ElementLocatorType locatorType = getElementMap().locatorType();
+		String elementMapLocator = getElementMap().locator()[index].toString();
+
+		waitClickable(ByConverter.convert(locatorType, elementMapLocator));
+		waitVisibility(ByConverter.convert(locatorType, elementMapLocator));
 	}
 
 	/**
@@ -115,7 +134,7 @@ public class WebBase extends MappedElement implements BaseUI {
 	 */
 	@SuppressWarnings("unchecked")
 	private void waitLoading() {
-		Reflections reflections = new Reflections("");
+		Reflections reflections = getPackageAnnotatedWithScreenMap();
 		Set<Class<?>> annotatedClasses = reflections.getTypesAnnotatedWith(ScreenMap.class);
 
 		for (Class<?> clazzI : annotatedClasses) {
@@ -123,7 +142,7 @@ public class WebBase extends MappedElement implements BaseUI {
 			if (fields.size() == 1) {
 				for (Field field : fields) {
 					// Aguardo o LOADING!
-					WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / 1000));
+					WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / ONE_SECOND));
 					ElementMap map = field.getAnnotation(ElementMap.class);
 					wait.until(ExpectedConditions.invisibilityOfElementLocated(ByConverter.convert(map.locatorType(), map.locator()[0])));
 					break;
@@ -133,20 +152,38 @@ public class WebBase extends MappedElement implements BaseUI {
 		}
 	}
 
+	/**
+	 * @return O "pacote pai" que contém todas as classes anotadas com
+	 *         {@link ScreenMap} e foi informada no behave.properties com a
+	 *         propriedade de valor "behave.annotation.screenMap". Caso
+	 *         contrário, o método varrerá todo o classpath.
+	 */
+	private Reflections getPackageAnnotatedWithScreenMap() {
+		Reflections reflections = new Reflections("");
+		try {
+			String screenMap = BehaveConfig.getProperty_AnnotatedScreenMap();
+			if (StringUtils.isNotEmpty(screenMap)) {
+				reflections = new Reflections(screenMap);
+			}
+		} catch (Exception e) {
+			// caso lance qualquer exception, será varrido todo o classpath. 
+			reflections = new Reflections("");
+		}
+		return reflections;
+	}
+
 	private void waitClickable(By by) {
-		WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / 1000));
+		WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / ONE_SECOND));
 		wait.until(ExpectedConditions.elementToBeClickable(by));
 	}
 
 	private void waitVisibility(By by) {
-
-		WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / 1000));
+		WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / ONE_SECOND));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
 	public WebDriver getDriver() {
-		WebDriver driver = (WebDriver) getRunner().getDriver();
-		return driver;
+		return (WebDriver) getRunner().getDriver();
 	}
 
 }

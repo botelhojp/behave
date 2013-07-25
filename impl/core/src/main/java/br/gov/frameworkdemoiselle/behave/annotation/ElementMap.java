@@ -53,10 +53,19 @@ import java.lang.annotation.Target;
 @Target(value = { ElementType.FIELD })
 public @interface ElementMap {
 
+	/**
+	 * Propriedade que determina o texto que irá na história.
+	 */
 	public String name();
 
+	/**
+	 * Propriedade que determina o tipo dos locators.
+	 */
 	public ElementLocatorType locatorType() default ElementLocatorType.Id;
 
+	/**
+	 * Propriedade que determina a localização do elemento.
+	 */
 	public String[] locator();
 
 }

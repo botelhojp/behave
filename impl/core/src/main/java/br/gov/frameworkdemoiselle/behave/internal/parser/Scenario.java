@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * 
  * @author SERPRO
- *
+ * 
  */
 public class Scenario {
 
@@ -49,9 +49,10 @@ public class Scenario {
 	private String identificationWithoutParametersName;
 	private String declaration;
 	private List<String> sentences;
-	private Boolean converted; // Indica que um cenário teve suas sentenças
-								// reutilizadas já injetadas
 	private Boolean reusable = false;
+
+	/** Indica que um cenário teve suas sentenças reutilizadas já injetadas */
+	private Boolean converted;
 
 	public Scenario() {
 	}
@@ -76,7 +77,8 @@ public class Scenario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((identification == null) ? 0 : identification.hashCode());
+		result = prime * result
+				+ ((identification == null) ? 0 : identification.hashCode());
 		return result;
 	}
 
@@ -117,7 +119,8 @@ public class Scenario {
 		return identificationWithoutParametersName;
 	}
 
-	public void setIdentificationWithoutParametersName(String identificationWithoutParametersName) {
+	public void setIdentificationWithoutParametersName(
+			String identificationWithoutParametersName) {
 		this.identificationWithoutParametersName = identificationWithoutParametersName;
 	}
 
