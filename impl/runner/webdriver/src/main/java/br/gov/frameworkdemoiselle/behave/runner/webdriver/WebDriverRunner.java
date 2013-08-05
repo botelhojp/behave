@@ -55,6 +55,9 @@ import br.gov.frameworkdemoiselle.behave.runner.ui.Element;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Screen;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.util.WebBrowser;
 
+/**
+ * @author SERPRO
+ */
 public class WebDriverRunner implements Runner {
 
 	private Logger logger = Logger.getLogger(WebDriverRunner.class);

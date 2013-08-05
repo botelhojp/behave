@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * @author SERPRO
+ */
 @XmlRootElement(namespace = "http://jazz.net/xmlns/alm/qm/v0.1/")
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = "executionresult")

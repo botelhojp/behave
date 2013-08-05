@@ -37,16 +37,14 @@
 package br.gov.frameworkdemoiselle.behave.runner.ui;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface TextField extends BaseUI {
 
 	public void sendKeys(CharSequence... keysToSend);
 
 	public void sendKeysWithTries(CharSequence... keysToSend);
-	
+
 	public void clear();
 
 }

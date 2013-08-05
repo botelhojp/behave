@@ -46,17 +46,17 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.util.FileUtil;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class StoryFileConverter {
 
-	public static List<String> convertReusedScenarios(List<String> originalFolderes, String originalExtension, String convertedExtension, Boolean includeSubFolder) {
+	public static List<String> convertReusedScenarios(List<String> originalFolderes, String originalExtension,
+			String convertedExtension, Boolean includeSubFolder) {
 		try {
 			List<String> originalBaseFilesName = new ArrayList<String>();
 			for (String originalFolder : originalFolderes) {
-				originalBaseFilesName.addAll(FileUtil.getFilesInFolderByExtension(originalFolder, originalExtension, includeSubFolder));
+				originalBaseFilesName.addAll(FileUtil.getFilesInFolderByExtension(originalFolder, originalExtension,
+						includeSubFolder));
 			}
 			return convertReusedScenarios(originalBaseFilesName, originalExtension, convertedExtension);
 		} catch (IOException ex) {
@@ -64,13 +64,16 @@ public class StoryFileConverter {
 		}
 	}
 
-	public static List<String> convertReusedScenarios(String originalFolder, String originalExtension, String convertedExtension, Boolean includeSubFolder) throws IOException {
-		List<String> originalBaseFilesName = FileUtil.getFilesInFolderByExtension(originalFolder, convertedExtension, includeSubFolder);
+	public static List<String> convertReusedScenarios(String originalFolder, String originalExtension,
+			String convertedExtension, Boolean includeSubFolder) throws IOException {
+		List<String> originalBaseFilesName = FileUtil.getFilesInFolderByExtension(originalFolder, convertedExtension,
+				includeSubFolder);
 		return convertReusedScenarios(originalBaseFilesName, originalExtension, convertedExtension);
 	}
 
 	// originBaseFilesName = lista de nomes de arquivo sem a extensão
-	public static List<String> convertReusedScenarios(List<String> originalBaseFilesName, String originalExtension, String convertedExtension) throws IOException {
+	public static List<String> convertReusedScenarios(List<String> originalBaseFilesName, String originalExtension,
+			String convertedExtension) throws IOException {
 		Map<String, String> originStories = new LinkedHashMap<String, String>();
 
 		// Coloca o conteúdo dos arquivos de origem no map, já utilizando como

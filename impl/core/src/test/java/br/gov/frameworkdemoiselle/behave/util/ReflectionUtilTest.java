@@ -45,10 +45,9 @@ import br.gov.frameworkdemoiselle.behave.annotation.ElementMap;
 import br.gov.frameworkdemoiselle.behave.annotation.ScreenMap;
 import br.gov.frameworkdemoiselle.behave.internal.util.ReflectionUtil;
 import br.gov.frameworkdemoiselle.behave.runner.ui.TextField;
+
 /**
- * 
  * @author SERPRO
- *
  */
 @ScreenMap(name = "Tela de Busca", location = "http://www.google.com.br")
 public class ReflectionUtilTest {

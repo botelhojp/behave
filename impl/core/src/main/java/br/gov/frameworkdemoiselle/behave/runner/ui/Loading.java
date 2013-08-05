@@ -37,11 +37,8 @@
 package br.gov.frameworkdemoiselle.behave.runner.ui;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Loading extends BaseUI {
-
 
 }

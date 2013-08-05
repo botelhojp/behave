@@ -84,32 +84,25 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.util.RegularExpressionUtil;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class StoryConverter {
 
 	private static final String LINE_BREAK_TOKEN = "\n";
 
 	/*
-	 * Definições: story=arquivo com um ou mais cenários ;
-	 * cenário=identificador+sentenças Algoritmo: Converter todas os cenários de
-	 * todos as stories (textos extraídos dos arquivos) para objetos do tipo
-	 * Scenario (declaração, identificação e List de sentenças) Varrer a lista
-	 * de sentenças para ver quais correspondem à identificação de cenários
-	 * (reuso de cenário) Para cada sentença identificada como chamando a um
-	 * cenário, caso este não tenha sido convertido, deve ser convertido antes
-	 * de ser reutilizado (cenário que reusa um cenário que reutiliza outro
-	 * cenário) Os parâmetros formais devem ser substituídos pelos reais (da
-	 * chamada) antes de serem reutilizados Converter os objetos Scenario de
-	 * volta para um texto correspondente ao arquivo convertido
+	 * Definições: story=arquivo com um ou mais cenários ; cenário=identificador+sentenças Algoritmo: Converter todas os
+	 * cenários de todos as stories (textos extraídos dos arquivos) para objetos do tipo Scenario (declaração,
+	 * identificação e List de sentenças) Varrer a lista de sentenças para ver quais correspondem à identificação de
+	 * cenários (reuso de cenário) Para cada sentença identificada como chamando a um cenário, caso este não tenha sido
+	 * convertido, deve ser convertido antes de ser reutilizado (cenário que reusa um cenário que reutiliza outro
+	 * cenário) Os parâmetros formais devem ser substituídos pelos reais (da chamada) antes de serem reutilizados
+	 * Converter os objetos Scenario de volta para um texto correspondente ao arquivo convertido
 	 */
 
 	/**
-	 * Gera stories a partir de stories originais, substituindo referências à
-	 * stories pelo conteúdo das mesmas, além de realizar a adequada
-	 * substituição dos parâmetros
+	 * Gera stories a partir de stories originais, substituindo referências à stories pelo conteúdo das mesmas, além de
+	 * realizar a adequada substituição dos parâmetros
 	 * 
 	 * @param pStories
 	 *            : Map com o path do arquivo e o conteúdo
@@ -149,8 +142,8 @@ public class StoryConverter {
 	}
 
 	/**
-	 * Verifica se existe algum cenário com a assinatura identica, se tiver para
-	 * o teste, não pode existir por causa do reuso que
+	 * Verifica se existe algum cenário com a assinatura identica, se tiver para o teste, não pode existir por causa do
+	 * reuso que
 	 * 
 	 * @param scenariosMap
 	 */
@@ -163,14 +156,14 @@ public class StoryConverter {
 					scenariosSignature.add(scenario.getIdentificationWithoutParametersName());
 				} else {
 					// Já existe um cenário com esta assinatura
-					throw new BehaveException("Existe mais de um cenário com o nome [" + scenario.getIdentification() + "], só pode existir 1.");
+					throw new BehaveException("Existe mais de um cenário com o nome [" + scenario.getIdentification()
+							+ "], só pode existir 1.");
 				}
 			}
 		}
 	}
 
 	/**
-	 * 
 	 * @param stories
 	 *            Todas as histórias que serão utilizadas
 	 * @return retorna um mapa contendo o arquivo e a
@@ -194,7 +187,8 @@ public class StoryConverter {
 		String storyDefinition = "";
 		for (int i = 0; i < scenarioTokens.length; i++) {
 			String scenarioToken = scenarioTokens[i];
-			if (RegularExpressionUtil.matches(BehaveConfig.getParser_IdentificationScenarioPattern(), scenarioToken.trim())) {
+			if (RegularExpressionUtil.matches(BehaveConfig.getParser_IdentificationScenarioPattern(),
+					scenarioToken.trim())) {
 				return storyDefinition;
 			}
 			storyDefinition += scenarioToken + LINE_BREAK_TOKEN;
@@ -208,7 +202,8 @@ public class StoryConverter {
 		Scenario scenario = null;
 		for (int i = 0; i < scenarioTokens.length; i++) {
 			String scenarioToken = scenarioTokens[i];
-			if (RegularExpressionUtil.matches(BehaveConfig.getParser_IdentificationScenarioPattern(), scenarioToken.trim())) {
+			if (RegularExpressionUtil.matches(BehaveConfig.getParser_IdentificationScenarioPattern(),
+					scenarioToken.trim())) {
 				scenario = createScenario(scenarioToken);
 				scenarios.add(scenario);
 			} else if (scenario != null) {
@@ -219,8 +214,10 @@ public class StoryConverter {
 	}
 
 	private static Scenario createScenario(String scenarioToken) {
-		String scenarioIdentification = RegularExpressionUtil.getGroup(BehaveConfig.getParser_IdentificationScenarioPattern(), scenarioToken, 3).trim();
-		String scenarioIdentificationWithoutParametersName = ScenarioParameter.removeParameterNames(scenarioIdentification.toUpperCase());
+		String scenarioIdentification = RegularExpressionUtil.getGroup(
+				BehaveConfig.getParser_IdentificationScenarioPattern(), scenarioToken, 3).trim();
+		String scenarioIdentificationWithoutParametersName = ScenarioParameter
+				.removeParameterNames(scenarioIdentification.toUpperCase());
 		Scenario scenario = new Scenario();
 		scenario.setConverted(false);
 		scenario.setDeclaration(scenarioToken);
@@ -230,14 +227,16 @@ public class StoryConverter {
 
 		// Se a identificação do cenário com e sem parâmetros não for igual ele
 		// é um cenário que tem parâmetros, e por tanto é reutilizável
-		if (!scenario.getIdentification().toLowerCase().equals(scenario.getIdentificationWithoutParametersName().toLowerCase())) {
+		if (!scenario.getIdentification().toLowerCase()
+				.equals(scenario.getIdentificationWithoutParametersName().toLowerCase())) {
 			scenario.setReusable(true);
 		}
 
 		return scenario;
 	}
 
-	private static Map<String, String> scenariosToStories(Map<String, String> storyDefinitions, Map<String, List<Scenario>> scenarios) {
+	private static Map<String, String> scenariosToStories(Map<String, String> storyDefinitions,
+			Map<String, List<Scenario>> scenarios) {
 		Map<String, String> stories = new LinkedHashMap<String, String>();
 		for (String storyPath : scenarios.keySet()) {
 			stories.put(storyPath, storyDefinitions.get(storyPath) + scenariosToText(scenarios.get(storyPath)));
@@ -286,26 +285,29 @@ public class StoryConverter {
 
 	/**
 	 * @param topScenario
-	 *            : utilizado para o tratamento de loop infinito no reuso de
-	 *            histórias
+	 *            : utilizado para o tratamento de loop infinito no reuso de histórias
 	 * @param scenario
 	 * @param scenariosIdentificationMap
 	 */
-	private static void reuseScenarioSentences(Scenario topScenario, Scenario scenario, Map<String, Scenario> scenariosIdentificationMap) {
+	private static void reuseScenarioSentences(Scenario topScenario, Scenario scenario,
+			Map<String, Scenario> scenariosIdentificationMap) {
 		List<String> sentences = new ArrayList<String>();
 		for (String sentence : scenario.getSentences()) {
 			// Removida a condição que impedia o reuso de passos negócio dentro
 			// de passos de negócio
-			String sentenceWithoutPrefixAndParametersName = RegularExpressionUtil.getGroup(BehaveConfig.getParser_PrefixesBddPattern(), sentence.trim(), 3);
+			String sentenceWithoutPrefixAndParametersName = RegularExpressionUtil.getGroup(
+					BehaveConfig.getParser_PrefixesBddPattern(), sentence.trim(), 3);
 			if (sentenceWithoutPrefixAndParametersName == null) {
 				sentenceWithoutPrefixAndParametersName = sentence;
 			}
 			sentenceWithoutPrefixAndParametersName = sentenceWithoutPrefixAndParametersName.trim();
-			sentenceWithoutPrefixAndParametersName = ScenarioParameter.removeParameterNames(sentenceWithoutPrefixAndParametersName).toUpperCase();
+			sentenceWithoutPrefixAndParametersName = ScenarioParameter.removeParameterNames(
+					sentenceWithoutPrefixAndParametersName).toUpperCase();
 
 			// Tratamento para loop infinito no reuso de histórias
 			if (sentenceWithoutPrefixAndParametersName.equals(topScenario.getIdentificationWithoutParametersName())) {
-				throw new BehaveException("Erro de referência cíclica encontrado no cenário: " + topScenario.getIdentification());
+				throw new BehaveException("Erro de referência cíclica encontrado no cenário: "
+						+ topScenario.getIdentification());
 			}
 
 			if (scenariosIdentificationMap.containsKey(sentenceWithoutPrefixAndParametersName)) {
@@ -316,7 +318,8 @@ public class StoryConverter {
 					// chame outro cenário que chame outro cenário
 					reuseScenarioSentences(topScenario, scenarioReused, scenariosIdentificationMap);
 				}
-				List<String> sentencesReplacedCallParameters = ScenarioParameter.replaceCallParameters(sentence.trim(), scenarioReused);
+				List<String> sentencesReplacedCallParameters = ScenarioParameter.replaceCallParameters(sentence.trim(),
+						scenarioReused);
 				sentences.addAll(sentencesReplacedCallParameters);
 			} else {
 				sentences.add(sentence);

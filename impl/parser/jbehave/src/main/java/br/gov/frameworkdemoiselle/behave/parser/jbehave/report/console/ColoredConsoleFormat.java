@@ -41,6 +41,9 @@ import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporter;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 
+/**
+ * @author SERPRO
+ */
 public class ColoredConsoleFormat extends Format {
 
 	public ColoredConsoleFormat() {

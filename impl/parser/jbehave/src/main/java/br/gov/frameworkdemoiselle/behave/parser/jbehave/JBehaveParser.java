@@ -71,12 +71,17 @@ import br.gov.frameworkdemoiselle.behave.parser.jbehave.report.ALMStoryReport;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.report.DefaultStoryReport;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.report.console.ColoredConsoleFormat;
 
+/**
+ * @author SERPRO
+ */
 public class JBehaveParser extends ConfigurableEmbedder implements Parser {
 
 	private Logger logger = Logger.getLogger(JBehaveParser.class);
+
 	private Configuration configuration;
 
 	private List<String> storyPaths = new ArrayList<String>();
+
 	private List<Step> steps = new ArrayList<Step>();
 
 	public JBehaveParser() {
@@ -98,8 +103,10 @@ public class JBehaveParser extends ConfigurableEmbedder implements Parser {
 			configuration.useStepFinder(new StepFinder());
 			configuration.useStoryControls(new StoryControls());
 			configuration.useStoryParser(new RegexStoryParser(configuration.keywords()));
-			StoryReporter storyReporter = BehaveConfig.getIntegration_Enabled() ? new ALMStoryReport() : new DefaultStoryReport();
-			configuration.useStoryReporterBuilder(new StoryReporterBuilder().withReporters(storyReporter).withFormats(getFormats()));
+			StoryReporter storyReporter = BehaveConfig.getIntegration_Enabled() ? new ALMStoryReport()
+					: new DefaultStoryReport();
+			configuration.useStoryReporterBuilder(new StoryReporterBuilder().withReporters(storyReporter).withFormats(
+					getFormats()));
 			EmbedderControls embedderControls = configuredEmbedder().embedderControls();
 			embedderControls.doGenerateViewAfterStories(true);
 			embedderControls.doIgnoreFailureInStories(true);

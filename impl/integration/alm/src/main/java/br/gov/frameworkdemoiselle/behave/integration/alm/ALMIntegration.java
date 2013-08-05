@@ -68,6 +68,9 @@ import br.gov.frameworkdemoiselle.behave.integration.alm.httpsclient.HttpsClient
 import br.gov.frameworkdemoiselle.behave.integration.alm.objects.Testplan;
 import br.gov.frameworkdemoiselle.behave.integration.alm.objects.util.GenerateXMLString;
 
+/**
+ * @author SERPRO
+ */
 public class ALMIntegration implements Integration {
 
 	private static Logger log = Logger.getLogger(ALMIntegration.class);

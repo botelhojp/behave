@@ -59,6 +59,9 @@ import br.gov.frameworkdemoiselle.behave.runner.Runner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Element;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Screen;
 
+/**
+ * @author SERPRO
+ */
 public class FestRunner implements Runner {
 
 	private Logger logger = Logger.getLogger(this.toString());

@@ -66,6 +66,9 @@ import br.gov.frameworkdemoiselle.behave.integration.alm.objects.Testcasedesign;
 import br.gov.frameworkdemoiselle.behave.integration.alm.objects.Testplan;
 import br.gov.frameworkdemoiselle.behave.integration.alm.objects.TestplanLink;
 
+/**
+ * @author SERPRO
+ */
 public class GenerateXMLString {
 
 	public static String getTestPlanString(String urlServer, String projectAreaAlias, String encoding, String testCaseId, List<TestcaseLink> testCaseLinks) throws JAXBException {

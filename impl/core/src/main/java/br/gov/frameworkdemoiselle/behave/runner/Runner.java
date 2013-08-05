@@ -40,9 +40,7 @@ import br.gov.frameworkdemoiselle.behave.runner.ui.Element;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Screen;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Runner {
 
@@ -65,7 +63,7 @@ public interface Runner {
 	public void quit();
 
 	public Object getDriver();
-	
+
 	public Screen getScreen();
 
 }

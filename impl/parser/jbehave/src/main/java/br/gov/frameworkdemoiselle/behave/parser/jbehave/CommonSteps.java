@@ -63,15 +63,17 @@ import br.gov.frameworkdemoiselle.behave.runner.ui.Select;
 import br.gov.frameworkdemoiselle.behave.runner.ui.TextField;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class CommonSteps implements Step {
 
 	protected Runner runner = (Runner) InjectionManager.getInstance().getInstanceDependecy(Runner.class);
-	protected DataProvider dataProvider = (DataProvider) InjectionManager.getInstance().getInstanceDependecy(DataProvider.class);
+
+	protected DataProvider dataProvider = (DataProvider) InjectionManager.getInstance().getInstanceDependecy(
+			DataProvider.class);
+
 	protected Logger logger = Logger.getLogger(this.toString());
+
 	protected String currentPageName;
 
 	@Given("vou para a tela \"$local\"")

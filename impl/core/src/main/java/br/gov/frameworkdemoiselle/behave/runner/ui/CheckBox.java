@@ -36,14 +36,11 @@
  */
 package br.gov.frameworkdemoiselle.behave.runner.ui;
 
-
 /**
- * 
  * @author SERPRO
- *
  */
 public interface CheckBox extends BaseUI {
 
 	public void click();
-	
+
 }

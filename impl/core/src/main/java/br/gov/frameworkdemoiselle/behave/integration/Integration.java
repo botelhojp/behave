@@ -39,9 +39,7 @@ package br.gov.frameworkdemoiselle.behave.integration;
 import java.util.Hashtable;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Integration {
 

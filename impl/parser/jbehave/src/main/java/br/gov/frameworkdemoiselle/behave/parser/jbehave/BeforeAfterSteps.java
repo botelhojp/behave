@@ -44,9 +44,13 @@ import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 
+/**
+ * @author SERPRO
+ */
 public class BeforeAfterSteps implements Step {
 
 	private Runner runner = (Runner) InjectionManager.getInstance().getInstanceDependecy(Runner.class);
+
 	private Logger logger = Logger.getLogger(BeforeAfterSteps.class);
 
 	@BeforeStories

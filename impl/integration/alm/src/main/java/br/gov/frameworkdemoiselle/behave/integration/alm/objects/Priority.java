@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
+/**
+ * @author SERPRO
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "priority")
 public class Priority {

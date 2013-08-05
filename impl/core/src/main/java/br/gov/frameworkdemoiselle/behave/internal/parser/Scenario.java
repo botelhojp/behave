@@ -39,18 +39,21 @@ package br.gov.frameworkdemoiselle.behave.internal.parser;
 import java.util.List;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public class Scenario {
 
 	private String identification;
+
 	private String identificationWithoutParametersName;
+
 	private String declaration;
+
 	private List<String> sentences;
+
 	private Boolean converted; // Indica que um cenário teve suas sentenças
 								// reutilizadas já injetadas
+
 	private Boolean reusable = false;
 
 	public Scenario() {

@@ -49,15 +49,14 @@ import org.apache.log4j.Logger;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class PropertiesLoaderUtil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private static PropertiesLoaderUtil config;
+
 	private Properties allProps;
 
 	private static Logger log = Logger.getLogger(PropertiesLoaderUtil.class);
@@ -135,11 +134,11 @@ public class PropertiesLoaderUtil implements Serializable {
 	 * Classe auxiliar para ordenação das propriedades de cada jar
 	 * 
 	 * @author SERPRO
-	 * 
 	 */
 	private class ConfigLevelPropertie implements Comparable<ConfigLevelPropertie> {
 
 		public Integer level;
+
 		public Properties properties;
 
 		public ConfigLevelPropertie(Integer level, Properties prop) {

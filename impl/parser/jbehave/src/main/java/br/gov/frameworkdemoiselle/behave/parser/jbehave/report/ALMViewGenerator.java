@@ -39,6 +39,9 @@ package br.gov.frameworkdemoiselle.behave.parser.jbehave.report;
 import org.jbehave.core.io.UnderscoredToCapitalized;
 import org.jbehave.core.reporters.TemplateableViewGenerator;
 
+/**
+ * @author SERPRO
+ */
 public class ALMViewGenerator extends TemplateableViewGenerator {
 
 	public ALMViewGenerator() {

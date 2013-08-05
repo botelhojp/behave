@@ -50,9 +50,7 @@ import br.gov.frameworkdemoiselle.behave.parser.Parser;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class BehaveContext {
 
@@ -69,6 +67,7 @@ public class BehaveContext {
 	private List<String> storiesPath = new ArrayList<String>();
 
 	private String step;
+
 	private Throwable fail;
 
 	private BehaveContext() {
@@ -96,13 +95,17 @@ public class BehaveContext {
 				throw new BehaveException("Lista de histórias vazias. Informe ao menos uma história");
 			}
 			// Armazena o array antigo para retirar as histórias depois
-			List<String> oldsStories = StoryFileConverter.convertReusedScenarios((List<String>) allOriginalStoriesPath.clone(), BehaveConfig.getParser_OriginalStoryFileExtension(), BehaveConfig.getParser_ConvertedStoryFileExtension(), true);
+			List<String> oldsStories = StoryFileConverter.convertReusedScenarios(
+					(List<String>) allOriginalStoriesPath.clone(), BehaveConfig.getParser_OriginalStoryFileExtension(),
+					BehaveConfig.getParser_ConvertedStoryFileExtension(), true);
 
 			// Adiciono as novas histórias
 			allOriginalStoriesPath.addAll(storiesPath);
 
 			// Faz a conversão
-			List<String> allStoriesConverted = StoryFileConverter.convertReusedScenarios(allOriginalStoriesPath, BehaveConfig.getParser_OriginalStoryFileExtension(), BehaveConfig.getParser_ConvertedStoryFileExtension(), true);
+			List<String> allStoriesConverted = StoryFileConverter.convertReusedScenarios(allOriginalStoriesPath,
+					BehaveConfig.getParser_OriginalStoryFileExtension(),
+					BehaveConfig.getParser_ConvertedStoryFileExtension(), true);
 
 			// Cria um novo array contendo somente as histórias atuais, sem as
 			// antigas

@@ -51,9 +51,7 @@ import java.util.List;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public class FileUtil {
 
@@ -74,7 +72,6 @@ public class FileUtil {
 		}
 		return stringBuilder.toString();
 	}
-
 
 	public static String createTempDir(String dir) {
 		String tempDirName = dir;

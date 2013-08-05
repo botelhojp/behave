@@ -39,9 +39,7 @@ package br.gov.frameworkdemoiselle.behave.parser;
 import java.util.List;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Parser {
 

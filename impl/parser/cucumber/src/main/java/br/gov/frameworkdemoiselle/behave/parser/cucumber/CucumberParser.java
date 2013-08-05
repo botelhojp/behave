@@ -43,6 +43,9 @@ import java.util.logging.Logger;
 import br.gov.frameworkdemoiselle.behave.parser.Parser;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 
+/**
+ * @author SERPRO
+ */
 public class CucumberParser implements Parser {
 
 	private Logger logger = Logger.getLogger(this.toString());

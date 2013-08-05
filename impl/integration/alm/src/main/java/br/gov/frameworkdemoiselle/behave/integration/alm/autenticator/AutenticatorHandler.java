@@ -53,6 +53,9 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author SERPRO
+ */
 public class AutenticatorHandler implements Runnable {
 
 	private static Hashtable<String, String> connections = new Hashtable<String, String>();

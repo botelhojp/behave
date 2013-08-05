@@ -46,14 +46,11 @@ import org.apache.log4j.Logger;
 import br.gov.frameworkdemoiselle.behave.internal.util.PropertiesLoaderUtil;
 
 /**
- * Gerecia das configurações do Demoiselle Behave. Utiliza o arquivo
- * behave.properties com a recurso de sobrescrita no qual o arquivo do usuário
- * sobrescreve qualquer outra propriedade.
- * 
- * Caso a propriedade seja informada na JVM está sobrescreverá as demais.
+ * Gerecia das configurações do Demoiselle Behave. Utiliza o arquivo behave.properties com a recurso de sobrescrita no
+ * qual o arquivo do usuário sobrescreve qualquer outra propriedade. Caso a propriedade seja informada na JVM está
+ * sobrescreverá as demais.
  * 
  * @author SERPRO
- * 
  */
 public class BehaveConfig {
 
@@ -69,11 +66,8 @@ public class BehaveConfig {
 	}
 
 	/**
-	 * Retorna uma propriedade qualquer. Util quando o usuário deseja adicionar
-	 * uma nova proprieade em seu projeto
-	 * 
-	 * Verifica se a propriedade foi setada antes no System.properties. Nesta
-	 * caso o System sobrescreve todas as outras
+	 * Retorna uma propriedade qualquer. Util quando o usuário deseja adicionar uma nova proprieade em seu projeto
+	 * Verifica se a propriedade foi setada antes no System.properties. Nesta caso o System sobrescreve todas as outras
 	 * 
 	 * @param key
 	 *            Chave
@@ -104,8 +98,7 @@ public class BehaveConfig {
 	}
 
 	/**
-	 * Retorna uma propriedade qualquer. Util quando o usuário deseja adicionar
-	 * uma nova proprieade em seu projeto
+	 * Retorna uma propriedade qualquer. Util quando o usuário deseja adicionar uma nova proprieade em seu projeto
 	 * 
 	 * @param key
 	 * @return

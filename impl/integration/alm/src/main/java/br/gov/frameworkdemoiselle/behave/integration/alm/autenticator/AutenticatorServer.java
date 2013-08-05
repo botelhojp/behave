@@ -44,6 +44,9 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
 
+/**
+ * @author SERPRO
+ */
 public class AutenticatorServer {
 
 	public static final String OPEN = "OPEN";

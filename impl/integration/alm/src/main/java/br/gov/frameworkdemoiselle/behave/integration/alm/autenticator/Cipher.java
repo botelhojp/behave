@@ -41,6 +41,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
+/**
+ * @author SERPRO
+ */
 public class Cipher {
 	
 	public static final String ENCONDING = "ISO-8859-1";

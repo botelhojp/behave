@@ -44,16 +44,15 @@ import org.apache.log4j.Logger;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 
 /**
- * Classe respónsável por utilizer a especificação SPI para encontrar os PARSERS
- * e RUNNERS disponíveis. Ele guarda os objetos em um hashtable para que o
- * objeto não seja instânciado em toda da a chamada.
+ * Classe respónsável por utilizer a especificação SPI para encontrar os PARSERS e RUNNERS disponíveis. Ele guarda os
+ * objetos em um hashtable para que o objeto não seja instânciado em toda da a chamada.
  * 
  * @author SERPRO
- * 
  */
 public class InjectionManager {
 
 	private Hashtable<String, Object> singletons = new Hashtable<String, Object>();
+
 	private static InjectionManager instance;
 
 	void setSingletons(Hashtable<String, Object> singletons) {
@@ -86,9 +85,7 @@ public class InjectionManager {
 			}
 
 			if (!singletons.containsKey(clazz.toString()))
-				throw new BehaveException(
-						"Não foram encontradas classes que implementem "
-								+ clazz.toString() + ".");
+				throw new BehaveException("Não foram encontradas classes que implementem " + clazz.toString() + ".");
 
 			return singletons.get(clazz.toString());
 		}

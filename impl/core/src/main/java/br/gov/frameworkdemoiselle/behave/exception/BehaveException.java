@@ -37,9 +37,7 @@
 package br.gov.frameworkdemoiselle.behave.exception;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public class BehaveException extends RuntimeException {
 

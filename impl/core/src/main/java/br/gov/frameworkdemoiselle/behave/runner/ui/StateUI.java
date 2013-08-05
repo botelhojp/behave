@@ -40,13 +40,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public enum StateUI {
 
-	PRESENT("Present"), ABSENT("Absent"), VISIBLE("Visible"), INVISIBLE("Invisible"), EDITABLE("Editable"), NOTEDITABLE("Not Editable"), ENABLE("Enable"), DISABLE("Disable"), OTHER("Other");
+	PRESENT("Present"), ABSENT("Absent"), VISIBLE("Visible"), INVISIBLE("Invisible"), EDITABLE("Editable"), NOTEDITABLE(
+			"Not Editable"), ENABLE("Enable"), DISABLE("Disable"), OTHER("Other");
 
 	private String text;
 

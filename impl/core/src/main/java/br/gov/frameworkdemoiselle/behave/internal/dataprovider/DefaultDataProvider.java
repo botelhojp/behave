@@ -41,12 +41,10 @@ import java.util.Hashtable;
 import br.gov.frameworkdemoiselle.behave.dataprovider.DataProvider;
 
 /**
- * 
  * @author SERPRO
- * 
  */
 public class DefaultDataProvider implements DataProvider {
-	
+
 	private static Hashtable<String, Object> data;
 
 	public DefaultDataProvider() {
@@ -57,7 +55,7 @@ public class DefaultDataProvider implements DataProvider {
 		key = key.trim();
 		data.put(key, value);
 	}
-	
+
 	public Object get(String key) {
 		key = key.trim();
 		return data.get(key);

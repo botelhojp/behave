@@ -50,6 +50,9 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
+/**
+ * @author SERPRO
+ */
 @SuppressWarnings("deprecation")
 public class HttpsClient {
 

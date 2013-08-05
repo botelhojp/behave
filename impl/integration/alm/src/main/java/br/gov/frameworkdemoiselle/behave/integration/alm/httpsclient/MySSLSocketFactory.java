@@ -53,6 +53,9 @@ import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
+/**
+ * @author SERPRO
+ */
 public class MySSLSocketFactory extends SSLSocketFactory {
 	SSLContext sslContext = SSLContext.getInstance("TLS");
 

@@ -40,6 +40,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * @author SERPRO
+ */
 public class AutenticatorClient {
 
 	private int port;

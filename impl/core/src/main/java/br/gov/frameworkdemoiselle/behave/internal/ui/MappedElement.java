@@ -42,13 +42,12 @@ import br.gov.frameworkdemoiselle.behave.runner.Runner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.BaseUI;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public abstract class MappedElement implements BaseUI {
 
 	protected Runner runner = (Runner) InjectionManager.getInstance().getInstanceDependecy(Runner.class);
+
 	protected ElementMap elementMap;
 
 	public ElementMap getElementMap() {
@@ -62,7 +61,7 @@ public abstract class MappedElement implements BaseUI {
 	public Runner getRunner() {
 		return runner;
 	}
-	
+
 	public void setRunner(Runner runner) {
 		this.runner = runner;
 	}

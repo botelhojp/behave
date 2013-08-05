@@ -43,6 +43,9 @@ import org.apache.log4j.Logger;
 import org.jbehave.core.reporters.PostStoryStatisticsCollector;
 import org.jbehave.core.reporters.TemplateProcessor;
 
+/**
+ * @author SERPRO
+ */
 public class ALMTemplateProcessor implements TemplateProcessor {
 
 	Logger log = Logger.getLogger(ALMTemplateProcessor.class);

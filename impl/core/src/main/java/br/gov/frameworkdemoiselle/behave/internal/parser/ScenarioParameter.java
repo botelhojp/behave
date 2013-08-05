@@ -47,20 +47,16 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.util.RegularExpressionUtil;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public class ScenarioParameter {
 
 	private static final String PARAMETER_PATTERN = "(\"([^\"]*)\")";
 
 	/**
-	 * Substitui os nome de parâmetro por parâmetros vazios, viabilizando a
-	 * comparação entre a chamada e a definição de um cenário Ex: Cenário: logar
-	 * como "{nome do usuario}" ... Cenário: fazer pedido ... logar como
-	 * "claudio" ... A função irá substituir tanto 'logar como
-	 * "{nome do usuário}"' quando 'logar como "claudio"' em 'logar como
+	 * Substitui os nome de parâmetro por parâmetros vazios, viabilizando a comparação entre a chamada e a definição de
+	 * um cenário Ex: Cenário: logar como "{nome do usuario}" ... Cenário: fazer pedido ... logar como "claudio" ... A
+	 * função irá substituir tanto 'logar como "{nome do usuário}"' quando 'logar como "claudio"' em 'logar como
 	 * ("([^"]*)")'
 	 * 
 	 * @param scenarioIdentification
@@ -71,18 +67,16 @@ public class ScenarioParameter {
 	}
 
 	/**
-	 * Substitui os parâmetros formais pelos parâmetros reais Ex: Cenário: fazer
-	 * pedido ... logar como "claudio" ... Cenário: logar como
-	 * "{nome do usuario}" ... Dado que foi preenchido o nome com
-	 * "{nome do usuario}" ... A função irá substituir tanto 'Dado que foi
-	 * preenchido o nome com "{nome do usuario}"' quando 'Dado que foi
-	 * preenchido o nome com "claudio"'
+	 * Substitui os parâmetros formais pelos parâmetros reais Ex: Cenário: fazer pedido ... logar como "claudio" ...
+	 * Cenário: logar como "{nome do usuario}" ... Dado que foi preenchido o nome com "{nome do usuario}" ... A função
+	 * irá substituir tanto 'Dado que foi preenchido o nome com "{nome do usuario}"' quando 'Dado que foi preenchido o
+	 * nome com "claudio"'
 	 * 
 	 * @param scenarioIdentification
 	 * @return
 	 */
 	public static List<String> replaceCallParameters(String scenarioCall, Scenario scenarioReused) {
-		if(scenarioReused.getIdentification()==null){
+		if (scenarioReused.getIdentification() == null) {
 			throw new BehaveException("Identificação do cenário nula");
 		}
 		Map<String, String> parametersCalled = getReusedParameters(scenarioReused.getIdentification(), scenarioCall);
@@ -90,11 +84,11 @@ public class ScenarioParameter {
 			return scenarioReused.getSentences();
 		}
 		List<String> newSentences = new ArrayList<String>();
-		for (String sentence : scenarioReused.getSentences()) {			
+		for (String sentence : scenarioReused.getSentences()) {
 			for (String parameterCall : parametersCalled.keySet()) {
 				sentence = sentence.replace(parameterCall, parametersCalled.get(parameterCall));
-			}			
-			newSentences.add(sentence);			
+			}
+			newSentences.add(sentence);
 		}
 		return newSentences;
 	}

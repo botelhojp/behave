@@ -37,12 +37,10 @@
 package br.gov.frameworkdemoiselle.behave.runner.ui;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Select extends BaseUI {
 
 	public void selectValue(String value);
-	
+
 }

@@ -37,9 +37,7 @@
 package br.gov.frameworkdemoiselle.behave.parser;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Step {
 

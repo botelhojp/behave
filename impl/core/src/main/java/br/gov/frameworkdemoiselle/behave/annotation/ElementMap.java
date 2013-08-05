@@ -43,8 +43,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Anotação utilizada para mapear os campos com os atributos dentro de uma
- * página (Classe anotada com @Page).
+ * Anotação utilizada para mapear os campos com os atributos dentro de uma página (Classe anotada com @Page).
  * 
  * @author SERPRO
  */

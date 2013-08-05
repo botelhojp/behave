@@ -36,6 +36,9 @@
  */
 package br.gov.frameworkdemoiselle.behave.parser.jbehave.report.console;
 
+/**
+ * @author SERPRO
+ */
 public enum ANSIColor {
 
 	RESET(0),

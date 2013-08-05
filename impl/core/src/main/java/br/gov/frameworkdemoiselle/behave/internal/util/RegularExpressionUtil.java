@@ -40,17 +40,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
- * 
  * @author SERPRO
- *
  */
 public class RegularExpressionUtil {
 
 	public static String getGroup(String regularExpression, String string, int group) {
 		Pattern pattern = Pattern.compile(regularExpression);
 		Matcher lMatcher = pattern.matcher(string);
-		if (lMatcher.find()){
+		if (lMatcher.find()) {
 			return lMatcher.group(group);
 		}
 		return null;
@@ -67,7 +66,7 @@ public class RegularExpressionUtil {
 		while (matcher.find()) {
 			matches.add(matcher.group(1));
 		}
-		for(String item : matches){
+		for (String item : matches) {
 			string = string.replace(item, newValue);
 		}
 		return string;

@@ -51,20 +51,30 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.integration.Integration;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 
+/**
+ * @author SERPRO
+ */
 public class ALMStoryReport extends DefaultStoryReport {
 
 	Logger log = Logger.getLogger(ALMStoryReport.class);
+
 	Story story;
+
 	String currentScenarioTitle;
 
 	// Datas para o calculo do tempo
 	Hashtable<String, Date> startDateScenario = new Hashtable<String, Date>();
+
 	Hashtable<String, Date> endDateScenario = new Hashtable<String, Date>();
+
 	Hashtable<String, Boolean> failedScenario = new Hashtable<String, Boolean>();
+
 	Hashtable<String, String> stepsScenario = new Hashtable<String, String>();
+
 	Hashtable<String, String> details = new Hashtable<String, String>();
 
-	protected Integration integration = (Integration) InjectionManager.getInstance().getInstanceDependecy(Integration.class);
+	protected Integration integration = (Integration) InjectionManager.getInstance().getInstanceDependecy(
+			Integration.class);
 
 	public void beforeStory(Story story, boolean givenStory) {
 		this.story = story;
@@ -84,8 +94,9 @@ public class ALMStoryReport extends DefaultStoryReport {
 					scenarioData.put("endDate", endDateScenario.get(scenario.getTitle()));
 					scenarioData.put("failed", failedScenario.get(scenario.getTitle()));
 					scenarioData.put("steps", stepsScenario.get(scenario.getTitle()));
-					scenarioData.put("testPlanId", BehaveConfig.getIntegration_TestPlanId());					
-					scenarioData.put("details", "Resultado enviado pelo Demoiselle Behave<br/>" + details.get(scenario.getTitle()));
+					scenarioData.put("testPlanId", BehaveConfig.getIntegration_TestPlanId());
+					scenarioData.put("details",
+							"Resultado enviado pelo Demoiselle Behave<br/>" + details.get(scenario.getTitle()));
 
 					if (meta.hasProperty("casodeteste")) {
 						scenarioData.put("testCaseId", meta.getProperty("casodeteste"));
@@ -104,7 +115,8 @@ public class ALMStoryReport extends DefaultStoryReport {
 		currentScenarioTitle = scenarioTitle;
 
 		// Reinicia as variáveis
-		startDateScenario.put(scenarioTitle, GregorianCalendar.getInstance(TimeZone.getTimeZone("GMT-03:00")).getTime());
+		startDateScenario
+				.put(scenarioTitle, GregorianCalendar.getInstance(TimeZone.getTimeZone("GMT-03:00")).getTime());
 		failedScenario.put(scenarioTitle, false);
 		stepsScenario.put(scenarioTitle, "");
 		details.put(scenarioTitle, "");
@@ -112,7 +124,8 @@ public class ALMStoryReport extends DefaultStoryReport {
 
 	@Override
 	public void afterScenario() {
-		endDateScenario.put(currentScenarioTitle, GregorianCalendar.getInstance(TimeZone.getTimeZone("GMT-03:00")).getTime());
+		endDateScenario.put(currentScenarioTitle, GregorianCalendar.getInstance(TimeZone.getTimeZone("GMT-03:00"))
+				.getTime());
 	}
 
 	@Override
@@ -124,11 +137,14 @@ public class ALMStoryReport extends DefaultStoryReport {
 	@Override
 	public void failed(String step, Throwable cause) {
 		super.failed(step, cause);
-		Throwable detail = (cause.getCause() != null && cause.getCause() instanceof AssertionError) ? cause.getCause() : cause;
-		details.put(currentScenarioTitle, "Detalhes do Resultado:<br/>Passo [" + step + "] falha [" + detail.getMessage() + "]");
+		Throwable detail = (cause.getCause() != null && cause.getCause() instanceof AssertionError) ? cause.getCause()
+				: cause;
+		details.put(currentScenarioTitle,
+				"Detalhes do Resultado:<br/>Passo [" + step + "] falha [" + detail.getMessage() + "]");
 		failedScenario.put(currentScenarioTitle, true);
 		// Adiciona o erro nos steps para aparecer na ALM
-		String newString = stepsScenario.get(currentScenarioTitle) + "<br/><br/><b>Erro:</b> <em>" + cause.getCause() + "</em>";
+		String newString = stepsScenario.get(currentScenarioTitle) + "<br/><br/><b>Erro:</b> <em>" + cause.getCause()
+				+ "</em>";
 		stepsScenario.put(currentScenarioTitle, newString);
 	}
 }

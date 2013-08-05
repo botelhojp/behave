@@ -45,10 +45,9 @@ import org.reflections.Reflections;
 import br.gov.frameworkdemoiselle.behave.annotation.ElementMap;
 import br.gov.frameworkdemoiselle.behave.annotation.ScreenMap;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
+
 /**
- * 
  * @author SERPRO
- *
  */
 public class ReflectionUtil {
 
@@ -61,11 +60,11 @@ public class ReflectionUtil {
 			ScreenMap annotation = clazz.getAnnotation(ScreenMap.class);
 			if (annotation.name().equals(name)) {
 				String base = "";
-				if (BehaveConfig.contains(annotation.base())){
+				if (BehaveConfig.contains(annotation.base())) {
 					base = BehaveConfig.getProperty(annotation.base());
-				}else{
+				} else {
 					base = annotation.base();
-				}				
+				}
 				urlFinal = (!base.equals("")) ? base + annotation.location() : annotation.location();
 				break;
 			}
@@ -144,7 +143,8 @@ public class ReflectionUtil {
 		}
 
 		if (map == null)
-			throw new RuntimeException("Nenhum Elemento foi encontrado com o nome [" + elementName + "] na página [" + pageName + "].");
+			throw new RuntimeException("Nenhum Elemento foi encontrado com o nome [" + elementName + "] na página ["
+					+ pageName + "].");
 
 		return map;
 	}

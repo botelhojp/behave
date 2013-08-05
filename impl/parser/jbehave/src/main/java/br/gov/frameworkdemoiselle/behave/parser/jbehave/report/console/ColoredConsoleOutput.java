@@ -53,6 +53,9 @@ import java.util.Properties;
 import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.reporters.ConsoleOutput;
 
+/**
+ * @author SERPRO
+ */
 public class ColoredConsoleOutput extends ConsoleOutput implements Serializable {
 
 	private static final long serialVersionUID = 1L;

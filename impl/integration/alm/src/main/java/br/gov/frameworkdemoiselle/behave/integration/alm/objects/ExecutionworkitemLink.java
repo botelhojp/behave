@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * @author SERPRO
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "testcase")
 public class ExecutionworkitemLink {

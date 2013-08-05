@@ -37,14 +37,12 @@
 package br.gov.frameworkdemoiselle.behave.runner.ui;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface MenuItem extends BaseUI {
-	
+
 	public void click();
-	
+
 	public void mouseOver();
 
 }

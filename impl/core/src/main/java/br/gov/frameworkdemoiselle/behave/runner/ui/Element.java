@@ -41,18 +41,16 @@ import java.util.List;
 import br.gov.frameworkdemoiselle.behave.annotation.ElementMap;
 
 /**
- * 
  * @author SERPRO
- *
  */
 public interface Element {
-	
+
 	public ElementMap getElementMap();
 
 	public void setElementMap(ElementMap elementMap);
-	
+
 	public String getText();
-	
+
 	public void setLocatorParameters(List<String> Parameters);
 
 }

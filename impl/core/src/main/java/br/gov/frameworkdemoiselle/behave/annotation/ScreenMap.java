@@ -50,20 +50,20 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ScreenMap {
 
 	/**
-	 * Propriedade que determina o texto que irá na estórias para que a chamada
-	 * da tela ocorra.
+	 * Propriedade que determina o texto que irá na estórias para que a chamada da tela ocorra.
 	 */
 	public String name();
-	
+
 	/**
 	 * Propriedade que determina a localização base do location
+	 * 
 	 * @return
 	 */
 	public String base() default "";
 
 	/**
-	 * Propriedade que determina a localização que será chamada quando a
-	 * propriedade name() for encontrada para determinada página.
+	 * Propriedade que determina a localização que será chamada quando a propriedade name() for encontrada para
+	 * determinada página.
 	 */
 	public String location();
 
