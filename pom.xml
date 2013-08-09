@@ -84,14 +84,32 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<!-- 
 	<distributionManagement>
 		<site>
 			<id>demoiselle.sourceforge.net</id>
 			<url>${site.url}</url>
 		</site>
 	</distributionManagement>
-	
+	-->
+  
+  <distributionManagement>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <name>Nexus Release Repository</name>
+      <url>file://~/Desktop/behave</url>
+    </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>file://~/Desktop/behave/snapshot</url>
+    </snapshotRepository>
+    <site>
+      <id>demoiselle.sourceforge.net</id>
+      <url>file://~/Desktop/behave/docs</url>
+    </site>
+  </distributionManagement>
+  	
 	<scm>
 		<connection>scm:git:git@github.com:demoiselle/${project.alias}.git</connection>
 		<developerConnection>scm:git:git@github.com:demoiselle/${project.alias}.git</developerConnection>
