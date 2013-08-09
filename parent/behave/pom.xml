@@ -100,27 +100,18 @@
 		</repository>
 	</repositories>
 
-  <!-- 
-	<distributionManagement>
-		<site>
-			<id>demoiselle.sourceforge.net</id>
-			<url>${site.url}</url>
-		</site>
-	</distributionManagement>
-  -->
   <distributionManagement>
-    <repository>
-      <id>demoiselle-behave.internal</id>
-			<name>Repositorio Interno</name>
-			<url>file:///home/93579551515/Desktop/behave</url>
-    </repository>
-    <snapshotRepository>
-      <id>demoiselle-behave.snapshots</id>
-			<name>Repositorio Interno</name>
-      <url>file:///home/93579551515/Desktop/behave</url>
-    </snapshotRepository>
+      <snapshotRepository>
+          <id>demoiselle.sourceforge.net</id>
+          <name>Sonatype Nexus Snapshots</name>
+          <url>sftp://web.sourceforge.net/home/groups/d/de/demoiselle/htdocs/repository/snapshot</url>
+      </snapshotRepository>
+      <repository>
+          <id>demoiselle.sourceforge.net</id>
+          <name>Nexus Release Repository</name>
+          <url>sftp://web.sourceforge.net/home/groups/d/de/demoiselle/htdocs/repository/release</url>
+      </repository>
   </distributionManagement>
-
 
 	<dependencies>
 		<dependency>
