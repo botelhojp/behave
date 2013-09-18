@@ -211,7 +211,7 @@ public class CommonSteps implements Step {
 		}
 	}
 	
-	@When("informo: \"$table\"")
+	@When("informo: $table")
 	public void informeTable(ExamplesTable table) {
 		for (Map<String, String> row : table.getRows()) {
 			Iterator<String> it = row.keySet().iterator();
