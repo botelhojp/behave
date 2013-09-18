@@ -36,13 +36,16 @@
  */
 package br.gov.frameworkdemoiselle.behave.parser.jbehave;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 
 import br.gov.frameworkdemoiselle.behave.dataprovider.DataProvider;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
@@ -206,6 +209,18 @@ public class CommonSteps implements Step {
 		} else {
 			throw new BehaveException("Elemento não encontrado na tela");
 		}
+	}
+	
+	@When("informo: \"$table\"")
+	public void informeTable(ExamplesTable table) {
+		for (Map<String, String> row : table.getRows()) {
+			Iterator<String> it = row.keySet().iterator();
+			
+			while (it.hasNext()) {
+				String key = (String) it.next();
+				informe(key, row.get(key));
+			}
+	     }
 	}
 
 	@Then("será exibido \"$text\"")
