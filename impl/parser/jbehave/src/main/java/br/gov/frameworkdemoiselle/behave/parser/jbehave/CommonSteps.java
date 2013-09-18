@@ -218,7 +218,7 @@ public class CommonSteps implements Step {
 			
 			while (it.hasNext()) {
 				String key = (String) it.next();
-				informe(key, row.get(key));
+				informe(row.get(key), key);
 			}
 	     }
 	}
