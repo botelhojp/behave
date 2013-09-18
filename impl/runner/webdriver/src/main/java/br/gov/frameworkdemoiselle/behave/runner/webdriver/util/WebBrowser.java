@@ -40,6 +40,7 @@ import java.io.File;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -57,10 +58,26 @@ public enum WebBrowser {
 
 		@Override
 		public WebDriver getWebDriver() {
+			FirefoxProfile profile = null;
+			
+			FirefoxBinary binary = null;
+					
 			if ( BehaveConfig.getRunner_ProfileEnabled() ) {
 				File profileDir = new File(BehaveConfig.getRunner_ProfilePath());
-	            FirefoxProfile profile = new FirefoxProfile(profileDir);
-	            return new FirefoxDriver(profile);
+	            
+				profile = new FirefoxProfile(profileDir);
+			}
+			
+			if ( BehaveConfig.getRunner_DisplayEnabled() ) {
+				binary = new FirefoxBinary();
+				
+				binary.setEnvironmentProperty("DISPLAY", ":" + BehaveConfig.getRunner_DisplayNumber());
+				
+				return new FirefoxDriver(binary, profile);
+			}
+						
+			if ( profile != null ) {
+				return new FirefoxDriver(profile);
 			}
 			
 			return new FirefoxDriver();
