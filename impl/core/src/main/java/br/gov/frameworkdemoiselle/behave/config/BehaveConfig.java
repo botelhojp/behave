@@ -223,6 +223,16 @@ public class BehaveConfig {
 	public static String getRunner_ProfilePath() {
 		return getProperty("behave.runner.screen.profilePath");
 	}
+	
+	// Ativa o uso de outro display utilizado pelo runner
+	public static boolean getRunner_DisplayEnabled() {
+		return Boolean.parseBoolean(getProperty("behave.runner.display.enabled", "false"));
+	}
+	
+	// Indica o número do display utilizado pelo runner
+	public static String getRunner_DisplayNumber() {
+		return getProperty("behave.runner.display.number");
+	}
 
 	public static String getRunner_ScreenType() {
 		return getProperty("behave.runner.screen.type");
