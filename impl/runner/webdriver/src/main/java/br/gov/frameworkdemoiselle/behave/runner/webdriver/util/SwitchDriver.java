@@ -38,27 +38,36 @@ package br.gov.frameworkdemoiselle.behave.runner.webdriver.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class SwitchDriver {
 
 	private WebDriver driver;
+	
 	private List<Node> nodes;
+	
 	private int nextFrame = 0;
 
 	public SwitchDriver(WebDriver driver) {
 		this.driver = driver;
+		
 		mapFrames();
 	}
 
 	private void mapFrames() {
 		nodes = new ArrayList<SwitchDriver.Node>();
+		
 		driver.switchTo().defaultContent();
-		Node node = new Node(null, 0, "root");
+		
+		WebElement root = driver.findElement(By.tagName("body"));
+		
+		Node node = new Node(null, root, "root");
+		
 		nodes.add(node);
+		
 		mapFrames(node);
 	}
 
@@ -67,7 +76,9 @@ public class SwitchDriver {
 	 */
 	public void switchNextFrame() {		
 		Node node = nodes.get(nextFrame);
+		
 		node.switchDriver();
+		
 		nextFrame = (nextFrame == nodes.size() - 1) ? 0 : (nextFrame + 1);
 	}
 
@@ -75,37 +86,68 @@ public class SwitchDriver {
 		return nodes.size();
 	}
 
-	private void mapFrames(Node _parent) {
-		_parent.switchDriver();
-		Pattern pattern = Pattern.compile("(<(.*?)frame(.*?)src=\"(.*?)\"(.*?)\\>)", Pattern.CASE_INSENSITIVE);				
-		Matcher matcher = pattern.matcher(driver.getPageSource());
-		int index = -1;
-		while (matcher.find()) {
-			Node frame = new Node(_parent, ++index, matcher.group(4));
-			nodes.add(frame);
-			mapFrames(frame);			
+	private void mapFrames(Node nodeParent) {
+		nodeParent.switchDriver();
+		
+		List<WebElement> frames = driver.findElements(By.tagName("frame"));
+		
+		for ( WebElement frame : frames ) {
+			String src = "";
+			
+			if ( frame != null && frame.getAttribute("src") != null ) {
+				src = frame.getAttribute("src");
+			}
+			
+			Node frameNode = new Node(nodeParent, frame, src);
+			
+			nodes.add(frameNode);
+			
+			mapFrames(frameNode);	
+		}
+		
+		List<WebElement> iframes = driver.findElements(By.tagName("iframe"));
+		
+		for ( WebElement iframe : iframes ) {
+			String src = "";
+			
+			if ( iframe != null && iframe.getAttribute("src") != null ) {
+				src = iframe.getAttribute("src");
+			}
+			
+			Node iframeNode = new Node(nodeParent, iframe, src);
+			
+			nodes.add(iframeNode);
+			
+			mapFrames(iframeNode);	
 		}
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer toSTring = new StringBuffer();
+		
 		for (Node node : nodes) {
 			toSTring.append(node);
 		}
+		
 		return toSTring.toString();
 	}
 
 	private class Node {
 
 		private Node parent;
-		private int frame;
+		
+		private WebElement frame;
+		
 		private String src;
 
-		public Node(Node parent, int frame, String src) {
+		public Node(Node parent, WebElement frame, String src) {
 			super();
+			
 			this.parent = parent;
+			
 			this.frame = frame;
+			
 			this.src = src;
 		}
 
@@ -117,6 +159,7 @@ public class SwitchDriver {
 				driver.switchTo().defaultContent();
 			} else {
 				parent.switchDriver();
+				
 				driver.switchTo().frame(frame);
 			}
 		}
@@ -124,11 +167,13 @@ public class SwitchDriver {
 		@Override
 		public String toString() {
 			StringBuffer toSTring = new StringBuffer();
+			
 			if (isRoot()) {
-				toSTring.append("\n[").append(frame).append(":").append(src).append("]");
+				toSTring.append("\n[").append(frame.getTagName()).append(":").append(src).append("]");
 			} else {
-				toSTring.append(parent).append("->[").append(frame).append(":").append(src).append("]");
+				toSTring.append(parent).append("->[").append(frame.getTagName()).append(":").append(src).append("]");
 			}
+			
 			return toSTring.toString();
 		}
 
