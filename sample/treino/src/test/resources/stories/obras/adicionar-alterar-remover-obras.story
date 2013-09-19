@@ -22,6 +22,38 @@ Então será exibido "Nome da Obra"
 
 Sair do "Sistema"
 
+Cenário: Adicionar uma nova obra
+
+Acesso ao Sistema com usuário "19296496063" e senha "205253"
+Dado que estou na tela "Tela Principal"
+Então vou para a tela "Lista de Obras"
+Quando clico em "Adicionar Obra"
+Então será exibido "Cadastro"
+Quando informo: 
+|Nome da Obra|Valor|Prazo|
+|Nova Obra|8888888.8|29/05/2013|
+Quando clico em "Inserir"
+
+Quando informo "100" no campo "Registros por Página"
+Então será exibido "Nome da Obra"
+
+Sair do "Sistema"
+
+Cenário: Adicionar outra obra
+
+Acesso ao Sistema com usuário "19296496063" e senha "205253"
+Dado que estou na tela "Tela Principal"
+Então vou para a tela "Lista de Obras"
+Quando clico em "Adicionar Obra"
+Então será exibido "Cadastro"
+Quando informo: stories/obras/nova-obra.table
+Quando clico em "Inserir"
+
+Quando informo "100" no campo "Registros por Página"
+Então será exibido "Nome da Obra"
+
+Sair do "Sistema"
+
 Cenário: Excluir Obra
 
 Acesso ao Sistema com usuário "19296496063" e senha "205253"
