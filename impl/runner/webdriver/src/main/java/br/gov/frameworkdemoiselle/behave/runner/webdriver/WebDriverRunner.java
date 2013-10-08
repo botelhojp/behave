@@ -38,6 +38,7 @@ package br.gov.frameworkdemoiselle.behave.runner.webdriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -130,9 +131,9 @@ public class WebDriverRunner implements Runner {
 			throw new BehaveException(message.getString("exception-page-not-selected"));
 		}
 
-		ElementMap map = ReflectionUtil.getElementMap(currentPageName, elementName);
-
-		Class<?> clazz = ReflectionUtil.getElementType(currentPageName, elementName);
+		Field f = ReflectionUtil.getElementMap(currentPageName, elementName);
+		ElementMap map = f.getAnnotation(ElementMap.class);
+		Class<?> clazz = f.getType();//ReflectionUtil.getElementType(currentPageName, elementName);
 
 		Element element = null;
 		// Comportamento padrão usa o InjectionManager para resolver quem

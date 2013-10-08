@@ -41,6 +41,7 @@ import java.awt.Window;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -216,10 +217,12 @@ public class FestRunner implements Runner {
 		if ((currentPageName == null) || (currentPageName.equals("")))
 			throw new RuntimeException("Não existe tela selecionada.");
 
-		ElementMap map = ReflectionUtil.getElementMap(currentPageName, elementName);
+		Field f = ReflectionUtil.getElementMap(currentPageName, elementName);
+		ElementMap map = f.getAnnotation(ElementMap.class);
+		
 		ElementIndex index = DesktopReflectionUtil.getElementIndex(currentPageName, elementName);
 
-		Class<?> clazz = ReflectionUtil.getElementType(currentPageName, elementName);
+		Class<?> clazz = f.getType();
 
 		DesktopElement element = null;
 		// Comportamento padrão usa o InjectionManager para resolver quem implementa a interface
