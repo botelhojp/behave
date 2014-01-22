@@ -40,6 +40,7 @@ import java.awt.Container;
 import java.awt.Window;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 
@@ -266,11 +267,31 @@ public class FestRunner implements Runner {
 	}
 
 	public File saveScreenshotTo(String fileName) {
+		saveHierarchyTo(fileName+".html");		
+		
 		File screenshotFile = new File(fileName);
 		screenshotFile.getParentFile().mkdirs();
 		ScreenshotTaker screenshotTaker = new ScreenshotTaker();
 		screenshotTaker.saveDesktopAsPng(screenshotFile.getAbsolutePath());
 		return screenshotFile;
+	}
+	
+	public void saveHierarchyTo(String fileName) {
+		File hierarchyFile = new File(fileName);
+		hierarchyFile.getParentFile().mkdirs();
+		PrintStream stream = null;
+		try {
+			stream = new PrintStream(hierarchyFile);
+			stream.append("<html><head></head><body><pre>");
+			stream.append(getHierarchy());
+			stream.append("</pre></body></html>");
+			stream.flush();
+		} catch (FileNotFoundException e) {
+		} finally {
+			if ( stream != null ) {
+				stream.close();
+			}
+		}
 	}
 
 	public void setScreen(String screenName) {
