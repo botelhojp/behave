@@ -1,6 +1,6 @@
 package br.gov.frameworkdemoiselle.behave.controller;
 
-public class StoryFilter implements Filter {
+public class StoryFilter extends Filter {
 	private final String value;
 
 	public StoryFilter(final String value) {

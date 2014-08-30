@@ -237,6 +237,6 @@ public class BehaveContext {
 	}
 
 	public void run(String storiesPath, String filter) {
-		run(storiesPath, new ScenarioFilter(filter));
+		run(storiesPath, Filter.scenario(filter));
 	}
 }
