@@ -53,6 +53,7 @@ import br.gov.frameworkdemoiselle.behave.parser.Step;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -107,6 +108,15 @@ public class BehaveContext {
 
 	public void setStepsPackage(String name) {
 		scanPackage(name);
+	}
+
+	public void setStepsPackage(String name, String excludes) {
+		scanPackage(name, excludes);
+	}
+
+	public void setStepsPackage(String name, Class...excludes) {
+		System.out.println(excludes.getClass());
+		scanPackage(name, excludes);
 	}
 
 	public void run(List<String> storiesPath) {
@@ -184,10 +194,38 @@ public class BehaveContext {
 		run(stories);
 	}
 
-	private void scanPackage(String name) {
+	private void scanPackage(String name, Class<?> ... excludes) {
+		System.out.println(String.format("%s", excludes.toString()));
 		for(PojoClass pc : PojoClassFactory.enumerateClassesByExtendingType(name, Step.class, null)){
 			try {
-				addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
+				if(excludes.length > 0){
+					for(Class<?> exclude : excludes){
+						System.out.println(String.format("%s %s %s", exclude.getName(), pc.getClazz().getName(), String.valueOf(exclude.getName().equals(pc.getClazz().getName()))));
+						if(!exclude.getName().equals(pc.getClazz().getName())){
+							addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
+						}
+					}
+				}else{
+					addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void scanPackage(String name, String excludes) {
+		for(PojoClass pc : PojoClassFactory.enumerateClassesByExtendingType(name, Step.class, null)){
+			try {
+				if(excludes != null){
+					if(!Pattern.compile(excludes).matcher(pc.getClazz().getName()).find()){
+						addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
+					}
+				}else{
+					addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
+				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (Throwable e) {
