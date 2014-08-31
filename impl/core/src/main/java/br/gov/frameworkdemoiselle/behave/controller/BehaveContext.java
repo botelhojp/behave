@@ -54,6 +54,7 @@ import br.gov.frameworkdemoiselle.behave.parser.Step;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import java.util.regex.Pattern;
+import java.util.Arrays;
 
 /**
  * 
@@ -107,15 +108,14 @@ public class BehaveContext {
 	}
 
 	public void setStepsPackage(String name) {
-		scanPackage(name);
+		scanPackage(name, null);
 	}
 
 	public void setStepsPackage(String name, String excludes) {
 		scanPackage(name, excludes);
 	}
 
-	public void setStepsPackage(String name, Class...excludes) {
-		System.out.println(excludes.getClass());
+	public void setStepsPackage(String name, Class... excludes) {
 		scanPackage(name, excludes);
 	}
 
@@ -194,16 +194,12 @@ public class BehaveContext {
 		run(stories);
 	}
 
-	private void scanPackage(String name, Class<?> ... excludes) {
-		System.out.println(String.format("%s", excludes.toString()));
+	private void scanPackage(String name, Class... excludes) {
 		for(PojoClass pc : PojoClassFactory.enumerateClassesByExtendingType(name, Step.class, null)){
 			try {
 				if(excludes.length > 0){
-					for(Class<?> exclude : excludes){
-						System.out.println(String.format("%s %s %s", exclude.getName(), pc.getClazz().getName(), String.valueOf(exclude.getName().equals(pc.getClazz().getName()))));
-						if(!exclude.getName().equals(pc.getClazz().getName())){
-							addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
-						}
+					if(!Arrays.asList(excludes).contains(pc.getClazz())){
+						addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
 					}
 				}else{
 					addSteps(createInstanceOf(Class.forName(pc.getClazz().getName())));
