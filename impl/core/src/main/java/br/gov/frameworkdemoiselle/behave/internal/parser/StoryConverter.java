@@ -211,8 +211,7 @@ public class StoryConverter {
 	}
 
 	private static String removeComment(String scenarioToken) {
-		String pattern = "^(!--)(.*)";
-		return !Pattern.compile(pattern).matcher(scenarioToken).find() ? (scenarioToken): "";
+		return !Pattern.compile("^(!--)(.*)").matcher(scenarioToken).find() ? (scenarioToken): "";
 	}
 
 	private static List<Scenario> extractScenarios(String storyContent) {
