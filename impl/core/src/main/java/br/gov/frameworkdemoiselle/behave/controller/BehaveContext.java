@@ -108,7 +108,7 @@ public class BehaveContext {
 	}
 
 	public void setStepsPackage(String name) {
-		scanPackage(name, null);
+		scanPackage(name, new Class [] {});
 	}
 
 	public void setStepsPackage(String name, String excludes) {
