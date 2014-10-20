@@ -134,7 +134,7 @@ public class BehaveContext {
 
 			// Correção de bug: Substitui as barras por File.separator para funcionar de acordo com o SO
 			for (String s : storiesFiles) {
-				s.replace("\\", File.separator).replace("/", File.separator);
+				s = s.replace("\\", File.separator).replace("/", File.separator);
 			}
 
 			// Adiciono as novas histórias no array com TODAS, inclusive as da execução anterior
