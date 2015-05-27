@@ -304,7 +304,11 @@ public class StoryConverter {
 		if (!scenario.getIdentification().toLowerCase().equals(scenario.getIdentificationWithoutParametersName().toLowerCase())) {
 			scenario.setReusable(true);
 		}
-
+		
+		if (scenarioToken.toLowerCase().startsWith("sub")){
+			scenario.setReusable(true);
+		}
+	
 		return scenario;
 	}
 
