@@ -184,6 +184,8 @@ public class JBehaveParser extends ConfigurableEmbedder implements Parser {
 			steps.add(new TableSteps());
 			steps.add(new MouseControlSteps());
 			steps.add(new DataGenerationSteps());
+			steps.add(new PrimeFacesSteps());
+			steps.add(new PrimeFacesCheckBoxSteps());
 		}
 
 		return new InstanceStepsFactory(configuration(), steps.toArray());
