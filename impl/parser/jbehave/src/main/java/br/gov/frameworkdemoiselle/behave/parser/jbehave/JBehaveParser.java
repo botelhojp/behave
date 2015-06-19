@@ -1,6 +1,6 @@
 /*
  * Demoiselle Framework
- * Copyright (C) 2013 SERPRO
+ * Copyright (C) 2015 SERPRO
  * ----------------------------------------------------------------------------
  * This file is part of Demoiselle Framework.
  * 
