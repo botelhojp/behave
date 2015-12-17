@@ -533,7 +533,8 @@ public class WebBase extends MappedElement implements BaseUI {
 					for (WebElement element : elementsFound) {
 						if (element.getText().contains(text)) {
 							found = true;
-							break;
+							// achou o texto, quando o esperado era não achar...
+							throw new BehaveException(message.getString("message-text-found", text));
 						}
 					}
 				}
@@ -551,7 +552,8 @@ public class WebBase extends MappedElement implements BaseUI {
 							for (WebElement element : elementsFound) {
 								if (element.getText().contains(text)) {
 									found = true;
-									break;
+									// achou o texto, quando o esperado era não achar...
+									throw new BehaveException(message.getString("message-text-found", text));
 								}
 							}
 						}
@@ -571,13 +573,11 @@ public class WebBase extends MappedElement implements BaseUI {
 				driver.manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
 			}
 
-			if (!found) {
-				break;
-			}
-
 			waitThreadSleep(BehaveConfig.getRunner_ScreenMinWait());
 			if ((GregorianCalendar.getInstance().getTimeInMillis() - startedTime) > BehaveConfig.getRunner_ScreenMaxWait()) {
-				Assert.fail(message.getString("message-text-found", text));
+				// Se já passou mais tempo que o esperado em BehaveConfig.getRunner_ScreenMaxWait(),
+				//  assume-se que o texto realmente não estava presente na página, como desejado.
+				break;
 			}
 
 		}
