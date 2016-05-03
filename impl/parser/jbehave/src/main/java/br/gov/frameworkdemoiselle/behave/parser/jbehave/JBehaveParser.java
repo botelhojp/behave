@@ -221,7 +221,7 @@ public class JBehaveParser extends ConfigurableEmbedder implements Parser {
 
 		Format screenshootingFormat = new ScreenShootingHtmlFormat(getKeywordsLocale());
 
-		return new Format[] { console, screenshootingFormat, Format.STATS };
+		return new Format[] { console, screenshootingFormat, Format.STATS, Format.XML };
 	}
 
 }
