@@ -81,8 +81,7 @@ public class WebBase extends MappedElement implements BaseUI {
 	public static boolean alreadySearchLoadingMap = false;
 
 	/**
-	 * Função principal que pega o elemento da tela. Nova Funcionalidade: Agora
-	 * ele busca o elemento em todos os frames
+	 * Função principal que pega o elemento da tela. Nova Funcionalidade: Agora ele busca o elemento em todos os frames
 	 * 
 	 * @return Lista de elementos encontrados
 	 */
@@ -108,24 +107,29 @@ public class WebBase extends MappedElement implements BaseUI {
 					List<WebElement> elementsFound = driver.findElements(by);
 					if (elementsFound.size() > 0) {
 						elements.addAll(elementsFound);
-					} else {
+					}
+					else {
 						// Se não encontrar nada sem frames busca nos frames
 						elements = getElementsWithFrames(driver, by);
 					}
 
-				} catch (Throwable t) {
+				}
+				catch (Throwable t) {
 					// Se não encontrar nada sem frames busca nos frames
 					elements = getElementsWithFrames(driver, by);
-				} finally {
+				}
+				finally {
 					driver.manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
 				}
 
 			}
 
 			return elements;
-		} catch (BehaveException be) {
+		}
+		catch (BehaveException be) {
 			throw be;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
 		}
 	}
@@ -185,7 +189,8 @@ public class WebBase extends MappedElement implements BaseUI {
 	protected static void waitThreadSleep(Long delay) {
 		try {
 			Thread.sleep(delay);
-		} catch (InterruptedException ex) {
+		}
+		catch (InterruptedException ex) {
 			throw new BehaveException(message.getString("exception-thread-sleep"), ex);
 		}
 	}
@@ -216,9 +221,7 @@ public class WebBase extends MappedElement implements BaseUI {
 	}
 
 	/**
-	 * Método que verifica em todas as classes se existe um componente Loading,
-	 * e se existir, ele sempre espera que este elemento desapareça antes de
-	 * continuar.
+	 * Método que verifica em todas as classes se existe um componente Loading, e se existir, ele sempre espera que este elemento desapareça antes de continuar.
 	 */
 	@SuppressWarnings("unchecked")
 	public void waitLoading() {
@@ -254,9 +257,10 @@ public class WebBase extends MappedElement implements BaseUI {
 				// Verifica se existe o LOADING
 				ExpectedConditions.presenceOfElementLocated(ByConverter.convert(loadingMap.locatorType(), loadingMap.locator()[0])).apply(driver);
 				existeLoading = true;
-				
+
 				log.debug(message.getString("message-loading-visible"));
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				existeLoading = false;
 			}
 
@@ -266,14 +270,14 @@ public class WebBase extends MappedElement implements BaseUI {
 				if (getElementMap() != null && getElementMap().forceWaitLoading()) {
 					WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / 1000));
 					wait.until(ExpectedConditions.visibilityOfElementLocated(ByConverter.convert(loadingMap.locatorType(), loadingMap.locator()[0])));
-					
+
 					log.debug(message.getString("message-force-loading"));
 				}
 
 				// Aguardo o LOADING desaparecer!
 				WebDriverWait wait = new WebDriverWait(getDriver(), (BehaveConfig.getRunner_ScreenMaxWait() / 1000));
 				wait.until(ExpectedConditions.invisibilityOfElementLocated(ByConverter.convert(loadingMap.locatorType(), loadingMap.locator()[0])));
-				
+
 				log.debug(message.getString("message-loading-invisible"));
 			}
 
@@ -334,7 +338,8 @@ public class WebBase extends MappedElement implements BaseUI {
 				if (!e.isDisplayed() || (disabledAttribute == null && readonlyAttribute == null)) {
 					throw new BehaveException(message.getString("exception-element-not-displayed-or-enabled", getElementMap().name()));
 				}
-			} else {
+			}
+			else {
 				// Faz a verificação se esta desabilitado por meio das classes
 				// de css para os casos de combo estilo Primefaces e Richfaces
 				String classes = e.getAttribute("class");
@@ -343,7 +348,8 @@ public class WebBase extends MappedElement implements BaseUI {
 				}
 			}
 
-		} else {
+		}
+		else {
 			throw new BehaveException(message.getString("exception-element-not-found", getElementMap().name()));
 		}
 	}
@@ -388,8 +394,7 @@ public class WebBase extends MappedElement implements BaseUI {
 	}
 
 	/**
-	 * Retorna um Driver executor de códigos Javascript. Verifica se o driver em
-	 * uso possui a capacidade de executar códigos Javascript.
+	 * Retorna um Driver executor de códigos Javascript. Verifica se o driver em uso possui a capacidade de executar códigos Javascript.
 	 * 
 	 * @return {@link JavascriptExecutor}
 	 */
@@ -416,123 +421,92 @@ public class WebBase extends MappedElement implements BaseUI {
 	public void waitText(String text) {
 		waitVisibleText(text);
 	}
-	
+
 	private SwitchDriver getSwitchDriver(WebDriver driver) {
 		frame = new SwitchDriver(driver);
 		return frame;
 	}
 
 	public void waitVisibleText(String text) {
-		
-		// Flag utilizada para o segundo laço
-		boolean found = false;
+
+		driver = (WebDriver) runner.getDriver();
+		frame = getSwitchDriver(driver);
+		driver.manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
+
+		try {
+			frame.bind();
+
+			for (int i = 0; i < frame.countFrames(); i++) {
+				frame.switchNextFrame();
+				List<WebElement> elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'" + text + "')]]"));
+				if (elementsFound.size() > 0)
+					return;
+			}
+
+			Assert.fail(message.getString("message-text-not-found", text));
+		}
+		catch (BehaveException be) {
+			throw be;
+		}
+		catch (StaleElementReferenceException ex) {
+			// Ignore this exception
+		}
+		catch (NoSuchFrameException ex) {
+			throw new BehaveException(message.getString("exception-no-such-frame", frame.currentFrame(), ex));
+		}
+		catch (Exception e) {
+			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
+		}
+
+	}
+
+	public void waitNotVisibleText(String text) {
+
 		driver = (WebDriver) runner.getDriver();
 		frame = getSwitchDriver(driver);
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
-		
+
+		boolean found = false;
+		long timeWaiting = 0;
+
 		try {
-			List<WebElement> elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-			
-			if (elementsFound.size() == 0) {
-				waitThreadSleep(BehaveConfig.getRunner_ScreenMinWait());
-				elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));	
-			
-				if (elementsFound.size() == 0) {
-					waitThreadSleep(BehaveConfig.getRunner_ScreenMaxWait());
-					elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-					if (elementsFound.size() == 0) {
-						
-						// Se não encontrar nada sem frames busca nos frames
-										
-						frame.bind();
-	
-						for (int i = 0; i < frame.countFrames(); i++) {
-							frame.switchNextFrame();
-	
-							 elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-							 if (elementsFound.size() > 0) {
-								 found=true;
-								 break;
-								
-							 }
-						}
-						if (!found)
-							Assert.fail(message.getString("message-text-not-found", text));
+			while (timeWaiting < BehaveConfig.getRunner_ScreenMaxWait().longValue()) {
+				frame.bind();
+
+				for (int i = 0; i < frame.countFrames(); i++) {
+					frame.switchNextFrame();
+					List<WebElement> elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'" + text + "')]]"));
+					if (elementsFound.size() > 0) {
+						found = true;
+						break;
 					}
 				}
-			}	
 
-		} catch (BehaveException be) {
-			throw be;
-		} catch (StaleElementReferenceException ex) {
-			// Ignore this exception
-		} catch (NoSuchFrameException ex) {
-			throw new BehaveException(message.getString("exception-no-such-frame", frame.currentFrame(), ex));
-		} catch (Exception e) {
-			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
-		}finally {
-			driver.manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
-		}
+				if (!found)
+					return;
 
-		
-	}
-	
-	
-	public void waitNotVisibleText(String text) {
-		
-		driver = (WebDriver) runner.getDriver();
-		frame = getSwitchDriver(driver);
-		driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
-		
-		try {
-			List<WebElement> elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-			
-			if (elementsFound.size() == 0) {
 				waitThreadSleep(BehaveConfig.getRunner_ScreenMinWait());
-				elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));	
-			
-				if (elementsFound.size() == 0) {
-					waitThreadSleep(BehaveConfig.getRunner_ScreenMaxWait());
-					elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-					if (elementsFound.size() == 0) {
-						
-						// Se não encontrar nada sem frames busca nos frames
-						
-						frame.bind();
-	
-						for (int i = 0; i < frame.countFrames(); i++) {
-							frame.switchNextFrame();
-	
-							 elementsFound = driver.findElements(By.xpath("//*[not(self::script or self::style)][text()[contains(.,'"+text+"')]]"));
-							 if (elementsFound.size() > 0) {
-								
-								Assert.fail(message.getString("message-text-found", text));
-								
-							 }
-							 
-						}
-						
-					}
-					
-				}else
-					Assert.fail(message.getString("message-text-found", text));
-			}else
-				Assert.fail(message.getString("message-text-found", text));
-			
+				timeWaiting += BehaveConfig.getRunner_ScreenMinWait().longValue();
+			}
 
-		} catch (BehaveException be) {
+			Assert.fail(message.getString("message-text-found", text));
+		}
+		catch (BehaveException be) {
 			throw be;
-		} catch (StaleElementReferenceException ex) {
+		}
+		catch (StaleElementReferenceException ex) {
 			// Ignore this exception
-		} catch (NoSuchFrameException ex) {
+		}
+		catch (NoSuchFrameException ex) {
 			throw new BehaveException(message.getString("exception-no-such-frame", frame.currentFrame(), ex));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
-		}finally {
+		}
+		finally {
 			driver.manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
 		}
 
-		
 	}
 
 	/**
@@ -548,9 +522,7 @@ public class WebBase extends MappedElement implements BaseUI {
 				driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 
 				/*
-				 * Busca o texto dentro do elemento, atentar para o método
-				 * getText, ele não é o getText do WebDriver e sim do Element do
-				 * framework (WebTextField, WebSelect...)
+				 * Busca o texto dentro do elemento, atentar para o método getText, ele não é o getText do WebDriver e sim do Element do framework (WebTextField, WebSelect...)
 				 */
 				if (getText().contains(text)) {
 					break;
@@ -565,9 +537,11 @@ public class WebBase extends MappedElement implements BaseUI {
 				}
 
 			}
-		} catch (BehaveException be) {
+		}
+		catch (BehaveException be) {
 			throw be;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
 		}
 	}
@@ -593,7 +567,8 @@ public class WebBase extends MappedElement implements BaseUI {
 			waitVis.until(ExpectedConditions.visibilityOfElementLocated(by));
 
 			testInvisibility = true;
-		} catch (org.openqa.selenium.TimeoutException e) {
+		}
+		catch (org.openqa.selenium.TimeoutException e) {
 			testInvisibility = false;
 		}
 
@@ -609,8 +584,7 @@ public class WebBase extends MappedElement implements BaseUI {
 	}
 
 	/**
-	 * Retira o foco do campo. O comportamento padrão para isso é selecionar o
-	 * <body>
+	 * Retira o foco do campo. O comportamento padrão para isso é selecionar o <body>
 	 */
 	public void blur() {
 		driver = (WebDriver) runner.getDriver();
@@ -633,9 +607,7 @@ public class WebBase extends MappedElement implements BaseUI {
 				driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 
 				/*
-				 * Busca o texto dentro do elemento, atentar para o método
-				 * getText, ele não é o getText do WebDriver e sim do Element do
-				 * framework (WebTextField, WebSelect...)
+				 * Busca o texto dentro do elemento, atentar para o método getText, ele não é o getText do WebDriver e sim do Element do framework (WebTextField, WebSelect...)
 				 */
 				if (!getText().contains(text)) {
 					break;
@@ -649,9 +621,11 @@ public class WebBase extends MappedElement implements BaseUI {
 					Assert.fail(message.getString("message-text-found", text));
 				}
 			}
-		} catch (BehaveException be) {
+		}
+		catch (BehaveException be) {
 			throw be;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new BehaveException(message.getString("exception-unexpected", e.getMessage()), e);
 		}
 	}

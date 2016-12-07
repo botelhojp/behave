@@ -39,10 +39,12 @@ package br.gov.frameworkdemoiselle.behave.runner.webdriver.ui;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
 import br.gov.frameworkdemoiselle.behave.runner.ui.AutoComplete;
@@ -56,8 +58,7 @@ public class WebAutoComplete extends WebBase implements AutoComplete {
 	protected static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 
 	/**
-	 * Armazena o valor que será selecionado na lista do autocomplete, somente
-	 * se, o valor de busca for diferente deste
+	 * Armazena o valor que será selecionado na lista do autocomplete, somente se, o valor de busca for diferente deste
 	 * 
 	 * Exemplo: Busca pelo texto "foo" mas seleciona na lista o valor "foo, bar"
 	 * 
@@ -103,9 +104,8 @@ public class WebAutoComplete extends WebBase implements AutoComplete {
 		waitElement(0);
 
 		List<WebElement> elements = getElements();
-		if (elements.size() == 1 && getElementMap().locator().length == 1) {
+		if (elements.size() == 1 && getElementMap().locator().length == 1)
 			throw new BehaveException(message.getString("exception-autocomplete-missing-elements", "locator", "@ElementMap"));
-		}
 
 		WebElement element = elements.get(0);
 
@@ -116,40 +116,36 @@ public class WebAutoComplete extends WebBase implements AutoComplete {
 		}
 
 		/*
-		 * Tempo do efeito de abertura das opções
-		 * 
-		 * Obs: Utilizada API de Reflection para retrocompatibilidade com
-		 * versões anteriores do DBehave (1.3.0 por exemplo)
+		 * Tempo do efeito de abertura das opções Obs: Utilizada API de Reflection para retrocompatibilidade com versões anteriores do DBehave (1.3.0 por exemplo)
 		 */
 		try {
 			Method waitElementOnlyVisible = getClass().getMethod("waitElementOnlyVisible", new Class[] { Integer.class });
 			try {
 				waitElementOnlyVisible.invoke(this, new Object[] { 1 });
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+			}
+			catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
-		} catch (NoSuchMethodException e) {
+			catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		catch (NoSuchMethodException e) {
 			waitElement(1);
 		}
 
-		if (this.selectValue != null) {
+		if (this.selectValue != null)
 			value = this.selectValue;
-		}
 
 		selectOnList(elements.get(1), value);
 	}
 
 	/**
 	 * Busca nas tags <li>ou
-	 * <td>filhas de "element", um texto correspondente a "value" na lista do
-	 * autocomplete e seleciona-o
+	 * <td>filhas de "element", um texto correspondente a "value" na lista do autocomplete e seleciona-o
 	 * 
 	 * @param WebElement
 	 *            element Elemento pai da lista de resultados do autocomplete
@@ -158,23 +154,26 @@ public class WebAutoComplete extends WebBase implements AutoComplete {
 	 */
 	protected void selectOnList(WebElement element, String value) {
 
+		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 		List<WebElement> elementValue = element.findElements(By.tagName("li"));
-		if (elementValue.size() == 0) {
+		if (elementValue.size() == 0)
 			elementValue = element.findElements(By.tagName("td"));
-		}
+		getDriver().manage().timeouts().implicitlyWait(BehaveConfig.getRunner_ScreenMaxWait(), TimeUnit.MILLISECONDS);
 
 		for (WebElement item : elementValue) {
-			if (item.getText().equals(value)) {
+			if (item.getText().contains(value)) {
 				// Aguarda o segundo elemento ser clicável
 				try {
 					waitElement(1);
 					item.click();
-				} catch (Throwable t) {
+				}
+				catch (Throwable t) {
 					waitElement(1);
 					item.click();
 				}
 				break;
 			}
 		}
+
 	}
 }
