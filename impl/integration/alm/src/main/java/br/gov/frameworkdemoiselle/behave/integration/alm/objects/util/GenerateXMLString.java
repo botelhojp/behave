@@ -126,7 +126,14 @@ public class GenerateXMLString {
 				break;
 			}
 		}
-
+		/// Criando Nova Categoria
+		 Testcase.Category c1 = new Testcase.Category();
+         c1.setTerm("Teste de Nova Categoria");
+         c1.setValue("Valor da nova categoria");
+         
+         currentTestCase.getCategory().add(c1);
+ 		/// 
+         
 		if (!objExists) {
 			Testcase.Category newC = new Testcase.Category();
 			newC.setTerm("Tipo de Execução");
@@ -225,6 +232,14 @@ public class GenerateXMLString {
 		result.setState(state);
 		result.setExecutionworkitem(workTest);
 
+		/// Criando Nova Categoria
+		  Executionresult.Category c2 = new Executionresult.Category();
+	      c2.setTerm("Nova Categoria de Resultado");
+	      c2.setValue("Novo valor de categoria de resultado");                        
+	      
+	      result.getCategory().add(c2);
+        ///
+          
 		// Datas de início e fim do teste
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(startDate);
