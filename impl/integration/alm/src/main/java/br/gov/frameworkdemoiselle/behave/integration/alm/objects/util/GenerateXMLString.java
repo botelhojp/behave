@@ -224,6 +224,12 @@ public class GenerateXMLString {
 
 		result.setState(state);
 		result.setExecutionworkitem(workTest);
+		
+		Executionresult.Category c2 = new Executionresult.Category();
+        c2.setTerm("Nova Categoria de Resultado");
+        c2.setValue("Novo valor de categoria de resultado");                        
+        
+        result.getCategory().add(c2);
 
 		// Datas de início e fim do teste
 		GregorianCalendar c = new GregorianCalendar();
