@@ -67,13 +67,14 @@ import br.gov.frameworkdemoiselle.behave.annotation.ElementLocatorType;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.fest.FestRunner;
 import br.gov.frameworkdemoiselle.behave.runner.fest.util.DesktopMappedElement;
 import br.gov.frameworkdemoiselle.behave.runner.ui.BaseUI;
 
 public class DesktopBase extends DesktopMappedElement implements BaseUI {
 
-	protected BehaveMessage message = new BehaveMessage(FestRunner.MESSAGEBUNDLE);
+	protected BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(FestRunner.MESSAGEBUNDLE);
 	private Logger log = Logger.getLogger(DesktopBase.class);
 	protected FestRunner runner = (FestRunner) getRunner();
 

@@ -73,6 +73,7 @@ import br.gov.frameworkdemoiselle.behave.integration.alm.httpsclient.HttpsClient
 import br.gov.frameworkdemoiselle.behave.integration.alm.objects.util.GenerateXMLString;
 import br.gov.frameworkdemoiselle.behave.internal.integration.ScenarioState;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 import com.ibm.rqm.xml.bind.Testcase;
 import com.ibm.rqm.xml.bind.Testplan;
@@ -84,7 +85,7 @@ public class ALMIntegration implements Integration {
 
 	public static String MESSAGEBUNDLE = "demoiselle-integration-alm-bundle";
 
-	private BehaveMessage message = new BehaveMessage(MESSAGEBUNDLE);
+	private BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(MESSAGEBUNDLE);
 
 	public String urlServer;
 	public String urlServerAuth;

@@ -88,6 +88,7 @@ import br.gov.frameworkdemoiselle.behave.internal.filter.StoryOrScenarioFilter;
 import br.gov.frameworkdemoiselle.behave.internal.filter.StoryFilter;
 import br.gov.frameworkdemoiselle.behave.internal.util.RegularExpressionUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 /**
  * 
@@ -98,7 +99,7 @@ public class StoryConverter {
 
 	private static final String LINE_BREAK_TOKEN = "\n";
 
-	private static BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	private static BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	/*
 	 * Definições: story=arquivo com um ou mais cenários ;

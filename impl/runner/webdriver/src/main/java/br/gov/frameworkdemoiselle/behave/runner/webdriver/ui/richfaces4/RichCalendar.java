@@ -38,6 +38,7 @@ package br.gov.frameworkdemoiselle.behave.runner.webdriver.ui.richfaces4;
 
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Calendar;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.ui.WebBase;
@@ -57,7 +58,7 @@ import br.gov.frameworkdemoiselle.behave.runner.webdriver.ui.WebBase;
  */
 public class RichCalendar extends WebBase implements Calendar {
 
-	private static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 
 	/*
 	 * (non-Javadoc)

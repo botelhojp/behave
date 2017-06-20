@@ -14,6 +14,7 @@ import br.gov.frameworkdemoiselle.behave.dataprovider.dto.Dataset;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class DatabaseDatasetLoader implements DatasetLoader {
 	
 	private static DatabaseConnector databaseConnector = (DatabaseConnector) InjectionManager.getInstance().getInstanceDependecy(DatabaseConnector.class);
 	
-	private static BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	private static BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	public Dataset load(String tableName){
 		try {

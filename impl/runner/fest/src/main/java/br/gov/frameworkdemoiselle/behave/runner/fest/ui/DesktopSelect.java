@@ -43,11 +43,12 @@ import org.fest.swing.fixture.JComboBoxFixture;
 
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.fest.FestRunner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Select;
 
 public class DesktopSelect extends DesktopBase implements Select {
-	private static BehaveMessage message = new BehaveMessage(FestRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(FestRunner.MESSAGEBUNDLE);
 
 	@Override
 	public void isVisibleDisabled() {

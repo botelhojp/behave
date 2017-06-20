@@ -41,13 +41,14 @@ import java.util.GregorianCalendar;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.fest.FestRunner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Screen;
 import junit.framework.Assert;
 
 public class DesktopScreen extends DesktopBase implements Screen {
 
-	private BehaveMessage message = new BehaveMessage(FestRunner.MESSAGEBUNDLE);
+	private BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(FestRunner.MESSAGEBUNDLE);
 
 	public void waitText(String text) {
 		waitText(text, 0L);

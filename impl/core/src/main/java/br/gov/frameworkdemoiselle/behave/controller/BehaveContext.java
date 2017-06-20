@@ -50,6 +50,7 @@ import br.gov.frameworkdemoiselle.behave.internal.filter.StoryOrScenarioFilter;
 import br.gov.frameworkdemoiselle.behave.internal.parser.StoryFileConverter;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.Parser;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 
@@ -103,7 +104,7 @@ public class BehaveContext {
 	private BehaveMessage bm;
 
 	private BehaveContext() {
-		bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+		bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 	}
 
 	private void checkClassScopeManagerExtension(){

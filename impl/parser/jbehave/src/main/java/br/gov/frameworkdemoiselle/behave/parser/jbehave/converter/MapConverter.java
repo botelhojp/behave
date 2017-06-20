@@ -45,6 +45,7 @@ import org.jbehave.core.steps.ParameterConverters.ParameterConverter;
 
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
 
 /**
@@ -54,7 +55,7 @@ import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
  */
 public class MapConverter implements ParameterConverter {
 
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 	private static final String REGEX = "\\s*?(([\\w\\S]{1,}\\s*?=>\\s*?[\\w\\S]*|\".*?\")[\\s,]*?)*\\s*?";
 
 	public boolean accept(Type type) {

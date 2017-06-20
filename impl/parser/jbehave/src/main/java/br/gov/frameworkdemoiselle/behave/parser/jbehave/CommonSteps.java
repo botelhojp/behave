@@ -51,6 +51,7 @@ import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.internal.util.DataProviderUtil;
 import br.gov.frameworkdemoiselle.behave.internal.util.ReflectionUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.AutoComplete;
@@ -80,7 +81,7 @@ public class CommonSteps implements Step {
 	protected DatasetProvider datasetProvider = (DatasetProvider) InjectionManager.getInstance().getInstanceDependecy(DatasetProvider.class);
 	private Logger logger = Logger.getLogger(CommonSteps.class);
 	protected static String currentPageName;
-	protected static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	protected static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 
 	@Given(value = "vou para a tela \"$local\"", priority = 1)
 	@Then(value = "vou para a tela \"$local\"", priority = 1)

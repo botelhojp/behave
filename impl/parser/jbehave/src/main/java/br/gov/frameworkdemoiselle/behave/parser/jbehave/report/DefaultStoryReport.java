@@ -55,11 +55,12 @@ import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.controller.BehaveContext;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
 
 public class DefaultStoryReport implements StoryReporter {
 
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 	private Logger log = Logger.getLogger(DefaultStoryReport.class);
 
 	public void storyNotAllowed(Story story, String filter) {

@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 
 import br.gov.frameworkdemoiselle.behave.internal.util.PropertiesLoaderUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 /**
  * Gerecia das configurações do Demoiselle Behave. Utiliza o arquivo
@@ -312,7 +313,7 @@ public class BehaveConfig {
 	 */
 	public static void logValueProperties() {
 		if (log.isDebugEnabled()) {
-			BehaveMessage bm = new BehaveMessage(MESSAGEBUNDLE);
+			BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(MESSAGEBUNDLE);
 			ArrayList<String> propertieList = new ArrayList<String>();
 			log.debug("------- " + bm.getString("properties") + " ----------");
 			Enumeration<Object> keys = properties.keys();

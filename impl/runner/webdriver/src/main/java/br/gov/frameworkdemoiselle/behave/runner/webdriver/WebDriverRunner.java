@@ -63,6 +63,7 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.internal.util.ReflectionUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Element;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Screen;
@@ -74,7 +75,7 @@ public class WebDriverRunner implements Runner {
 	private WebDriver driver;
 	private WebBrowser browser;
 	public static String MESSAGEBUNDLE = "demoiselle-runner-webdriver-bundle";
-	private static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 
 	void setWebDriver(WebDriver driver) {
 		this.driver = driver;

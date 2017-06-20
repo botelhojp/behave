@@ -44,6 +44,7 @@ import org.fest.swing.fixture.JFileChooserFixture;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.fest.FestRunner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.FileUpload;
 
@@ -54,7 +55,7 @@ import br.gov.frameworkdemoiselle.behave.runner.ui.FileUpload;
  */
 public class DesktopFileUpload extends DesktopBase implements FileUpload {
 	
-	protected BehaveMessage coreMessage = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	protected BehaveMessage coreMessage = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	@Override
 	public void sendKeys(CharSequence... keysToSend) {

@@ -47,6 +47,7 @@ import org.openqa.selenium.WebElement;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.AutoComplete;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 
@@ -55,7 +56,7 @@ import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
  */
 public class WebAutoComplete extends WebBase implements AutoComplete {
 
-	protected static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	protected static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 
 	/**
 	 * Armazena o valor que será selecionado na lista do autocomplete, somente

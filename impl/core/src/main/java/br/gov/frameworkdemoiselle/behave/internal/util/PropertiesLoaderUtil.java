@@ -50,6 +50,7 @@ import org.apache.log4j.Logger;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 /**
  * 
@@ -62,7 +63,7 @@ public class PropertiesLoaderUtil implements Serializable {
 
 	private static PropertiesLoaderUtil config;
 	private Properties allProps;
-	private static BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE, Locale.getDefault());
+	private static BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE, Locale.getDefault());
 	
 	private static Logger log = Logger.getLogger(PropertiesLoaderUtil.class);
 

@@ -70,6 +70,7 @@ import br.gov.frameworkdemoiselle.behave.controller.BehaveContext;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.util.FileUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.Parser;
 import br.gov.frameworkdemoiselle.behave.parser.Step;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.converter.MapConverter;
@@ -84,7 +85,7 @@ public class JBehaveParser extends ConfigurableEmbedder implements Parser {
 	private Configuration configuration;
 
 	public static String MESSAGEBUNDLE = "demoiselle-parser-jbehave-bundle";
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 
 	private List<String> storyPaths = new ArrayList<String>();
 	private List<Step> steps = new ArrayList<Step>();

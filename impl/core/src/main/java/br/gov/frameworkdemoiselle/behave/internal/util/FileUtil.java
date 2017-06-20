@@ -51,6 +51,7 @@ import java.util.List;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 /**
  * 
@@ -60,7 +61,7 @@ import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
 public class FileUtil {
 
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
-	private static BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	private static BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	public static String loadFile(String pFilePath) throws IOException {		
 		pFilePath = pFilePath.replaceAll("%20", " "); // Correção de problemas com espaços		
