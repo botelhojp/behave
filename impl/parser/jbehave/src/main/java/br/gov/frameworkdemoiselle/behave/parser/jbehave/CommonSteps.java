@@ -484,4 +484,10 @@ public class CommonSteps implements Step {
 		fileUpload.openFile(fileName);
 	}
 
+	@When("aguardo \"$tempo\" segundo(s)")
+	@Then("aguardo \"$tempo\" segundo(s)")
+	public void waitSeconds(Integer time) throws InterruptedException {
+		Thread.sleep(time * 1000);
+	}
+
 }
