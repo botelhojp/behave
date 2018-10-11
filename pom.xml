@@ -23,14 +23,19 @@
 
 	<groupId>br.gov.frameworkdemoiselle.component</groupId>
 	<artifactId>demoiselle-behave-build</artifactId>
-	<version>1.5.4-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<parent>
+	<!-- <parent>
 		<groupId>br.gov.frameworkdemoiselle</groupId>
 		<artifactId>demoiselle-component-build-parent</artifactId>
 		<version>9</version>
 		<relativePath>../internal/parent/build/component</relativePath>
+	</parent>-->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>8</version>
 	</parent>
 
 	<name>Demoiselle Behave</name>
@@ -119,12 +124,12 @@
 				</configuration>
 			</plugin>
 
-			<!-- Sempre compila apra java 6 -->
+			<!-- Sempre compila apra java 8 -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
