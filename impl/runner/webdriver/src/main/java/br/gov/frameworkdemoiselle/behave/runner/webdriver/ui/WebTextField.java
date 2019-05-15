@@ -61,7 +61,7 @@ public class WebTextField extends WebBase implements TextField {
 		String value = charSequenceToString(keysToSend);
 		
 		//Envia uma sequencia de char
-		getElements().get(0).sendKeys(value);
+		getElements().get(0).sendKeys(getValueToSend(value));
 	}
 
 	/**
