@@ -47,13 +47,14 @@ import org.openqa.selenium.interactions.Actions;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.TextField;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 
 
 public class WebTextField extends WebBase implements TextField {
 
-	private static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 
 	public void sendKeys(CharSequence... keysToSend) {
 		waitElement(0);

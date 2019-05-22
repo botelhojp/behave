@@ -50,6 +50,7 @@ import br.gov.frameworkdemoiselle.behave.controller.BehaveContext;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 
@@ -58,7 +59,7 @@ public class ScreenShootingMaker {
 	private static final String DEFAULT_SCREENSHOT_PATH_PATTERN = "{0}" + File.separator + "view" + File.separator + "screenshots" + File.separator + "failed-scenario-{1}.png";
 	private static final String DEFAULT_SCREENSHOT_PATH_PATTERN_WITH_SCENARIO = "{0}" + File.separator + "view" + File.separator + "screenshots-with-scenario" + File.separator + "failed-scenario-{1}-{2}.png";
 	private static final Logger logger = Logger.getLogger(ScreenShootingMaker.class);
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 
 	protected final StoryReporterBuilder reporterBuilder;
 	protected final String screenshotPathPattern;

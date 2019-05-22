@@ -9,12 +9,13 @@ import org.apache.log4j.Logger;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 
 public class UIProxy implements InvocationHandler {
 
 	private Object obj;
 	Logger log = Logger.getLogger(UIProxy.class);
-	private BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	private BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	public static Object newInstance(Object obj) {
 		return java.lang.reflect.Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(), new UIProxy(obj));

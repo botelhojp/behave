@@ -48,12 +48,13 @@ import org.jbehave.core.reporters.StoryReporterBuilder;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 
 public class ScreenShootingHtmlOutput extends HtmlOutput {
 
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 	private ScreenShootingMaker maker;
 	private static final Logger logger = Logger.getLogger(ScreenShootingHtmlOutput.class);
 

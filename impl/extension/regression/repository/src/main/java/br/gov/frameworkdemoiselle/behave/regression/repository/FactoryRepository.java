@@ -39,12 +39,13 @@ package br.gov.frameworkdemoiselle.behave.regression.repository;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.regression.Repository;
 
 public class FactoryRepository {
 
 	public static String MESSAGEBUNDLE = "demoiselle-regression-repository-bundle";
-	private static BehaveMessage message = new BehaveMessage(FactoryRepository.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(FactoryRepository.MESSAGEBUNDLE);
 	
 	public static Repository getInstance() {
 		String type = BehaveConfig.getProperty("behave.regression.type");

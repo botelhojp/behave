@@ -46,12 +46,13 @@ import org.junit.Assert;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.fest.FestRunner;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Label;
 
 public class DesktopLabel extends DesktopBase implements Label {
 
-	private static BehaveMessage message = new BehaveMessage(FestRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(FestRunner.MESSAGEBUNDLE);
 
 	@Override
 	public String getText() {

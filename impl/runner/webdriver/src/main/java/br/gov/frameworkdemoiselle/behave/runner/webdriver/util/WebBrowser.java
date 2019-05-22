@@ -59,6 +59,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 
 public enum WebBrowser {
@@ -71,7 +72,7 @@ public enum WebBrowser {
 
 		@Override
 		public WebDriver getWebDriver() {
-			BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+			BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 			try {
 				if (BehaveConfig.getRunner_RemoteName().equals("")) {
 					throw new BehaveException(message.getString("exception-property-not-found", "behave.runner.screen.remote.name"));

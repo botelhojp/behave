@@ -41,51 +41,86 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 /**
+ * Class that manipulates Demoiselle Behave resource bundles.
  * 
  * @author SERPRO
  *
  */
 public class BehaveMessage {
 
-	private ResourceBundle rb = null;
+	/**
+	 * Messages resource bundle.
+	 */
+	private ResourceBundle resourceBundle = null;
 
 	/**
-	 * Constroi o BehaveMessage a partir do nome do bundle
-	 * @param baseName
+	 * Creates a BehaveMessage according to passed resource bundle base name and locale.
+	 * 
+	 * @param baseName the resource bundle base name
+	 * @param locale the resource bundle locale
 	 */
-	public BehaveMessage(String baseName) {
-		rb = ResourceBundle.getBundle(baseName, new Locale(BehaveConfig.getProperty("behave.message.locale", "pt")));
+	protected BehaveMessage(String baseName, Locale locale) {
+		setResourceBundle(baseName, locale);
 	}
-	
-	public BehaveMessage(String baseName, Locale locale) {
+
+	/**
+	 * Gets the resource bundle.
+	 * 
+	 * @return the resource bundle
+	 */
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
+
+	/**
+	 * Sets the resource bundle base name and locale.
+	 * 
+	 * @param baseName the resource bundle base name
+	 * @param locale the resource bundle locale
+	 */
+	private void setResourceBundle(String baseName, Locale locale) {
+		
 		try {
-			rb = ResourceBundle.getBundle(baseName, locale);
+			resourceBundle = ResourceBundle.getBundle(baseName, locale);
 		} catch (MissingResourceException ex) {	
-			rb = ResourceBundle.getBundle(baseName, new Locale("pt","BR"));
+			resourceBundle = ResourceBundle.getBundle(baseName, new Locale("pt","BR"));
 		}
 	}
 
 	/**
-	 * Obtem a mensagem no bundle
-	 * @param key chave da mensagem
-	 * @param params parametros da mensagem
-	 * @return
+	 * Gets the resource bundle message based on a key and some parameters.
+	 * 
+	 * @param key message key
+	 * @param params message parameteres
+	 * 
+	 * @return resource bundle message
 	 */
 	public String getString(String key, Object... params) {
+		
 		if (params == null || params.length == 0) {
 			return getString(key);
 		} else {
 			return MessageFormat.format(getString(key), params);
 		}
+		
 	}
 	
+	/**
+	 * Gets the resource bundle message based on a key.
+	 * 
+	 * @param key message key
+	 * 
+	 * @return resource bundle message
+	 */
 	public String getString(String key) {
-		if (rb.containsKey(key)) {
-			return rb.getString(key);
+		
+		if (resourceBundle.containsKey(key)) {
+			return resourceBundle.getString(key);
 		} else {
 			return "??{" + key + "}??";
 		}
+		
 	}
+	
 }

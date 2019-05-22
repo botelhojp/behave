@@ -40,6 +40,7 @@ import org.openqa.selenium.WebElement;
 
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.ui.WebBase;
 
@@ -56,7 +57,7 @@ import br.gov.frameworkdemoiselle.behave.runner.webdriver.ui.WebBase;
  */
 public class RichInputNumberSpinner extends WebBase {
 
-	private static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 	
 	public void sendKeys(CharSequence... keysToSend) {
 		checkRichfacesComponent();

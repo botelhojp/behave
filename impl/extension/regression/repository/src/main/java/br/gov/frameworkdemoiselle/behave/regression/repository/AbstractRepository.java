@@ -41,6 +41,7 @@ import java.io.File;
 import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.regression.Repository;
 
 /**
@@ -61,7 +62,7 @@ public abstract class AbstractRepository implements Repository {
 	protected String password;
 
 	public AbstractRepository() {
-		message = new BehaveMessage(MESSAGEBUNDLE);
+		message = BehaveMessageFactory.getInstance().getBehaveMessage(MESSAGEBUNDLE);
 		url = getProperty("behave.regression.url");		
 		folder = getProperty("behave.regression.folder");
 		user = getProperty("behave.regression.user");

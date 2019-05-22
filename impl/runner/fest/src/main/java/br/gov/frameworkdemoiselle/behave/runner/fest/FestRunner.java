@@ -65,6 +65,7 @@ import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.spi.InjectionManager;
 import br.gov.frameworkdemoiselle.behave.internal.util.ReflectionUtil;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.Runner;
 import br.gov.frameworkdemoiselle.behave.runner.fest.annotation.ElementIndex;
 import br.gov.frameworkdemoiselle.behave.runner.fest.ui.DesktopFileUpload;
@@ -79,7 +80,7 @@ public class FestRunner implements Runner {
 	public static String MESSAGEBUNDLE = "demoiselle-runner-fest-bundle";
 	private Logger logger = Logger.getLogger(this.toString());
 
-	private BehaveMessage message = new BehaveMessage(MESSAGEBUNDLE);
+	private BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(MESSAGEBUNDLE);
 
 	public Robot robot;
 	public JFrame mainFrame;
@@ -272,7 +273,7 @@ public class FestRunner implements Runner {
 		if (elementClass.equals(FileUpload.class)) {
 			return new DesktopFileUpload();
 		} else {
-			BehaveMessage coreMessage = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+			BehaveMessage coreMessage = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 			throw new BehaveException(coreMessage.getString("exception-method-not-implemented-for-type"
 					, "FestRunner.getElement(Class<?> elementClass)", elementClass.getSimpleName()));
 		}

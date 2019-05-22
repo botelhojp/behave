@@ -62,6 +62,7 @@ import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.ui.MappedElement;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.BaseUI;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Loading;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
@@ -71,7 +72,7 @@ import br.gov.frameworkdemoiselle.behave.runner.webdriver.util.SwitchDriver;
 public class WebBase extends MappedElement implements BaseUI {
 
 	private List<String> locatorParameters;
-	private static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 	private SwitchDriver frame;
 	Logger log = Logger.getLogger(WebBase.class);
 

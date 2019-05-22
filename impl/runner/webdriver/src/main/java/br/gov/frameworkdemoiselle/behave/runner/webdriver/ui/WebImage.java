@@ -43,12 +43,13 @@ import org.openqa.selenium.WebElement;
 
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Image;
 import br.gov.frameworkdemoiselle.behave.runner.webdriver.WebDriverRunner;
 
 public class WebImage extends WebBase implements Image {
 	
-	protected static BehaveMessage message = new BehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
+	protected static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(WebDriverRunner.MESSAGEBUNDLE);
 	
 	/**
 	 * {@inheritDoc}

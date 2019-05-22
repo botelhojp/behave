@@ -45,6 +45,7 @@ import br.gov.frameworkdemoiselle.behave.config.BehaveConfig;
 import br.gov.frameworkdemoiselle.behave.exception.BehaveException;
 import br.gov.frameworkdemoiselle.behave.internal.ui.UIProxy;
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.runner.ui.Element;
 
 /**
@@ -57,7 +58,7 @@ public class InjectionManager {
 
 	private Hashtable<String, Object> singletons = new Hashtable<String, Object>();
 	private static InjectionManager instance;
-	private static BehaveMessage bm = new BehaveMessage(BehaveConfig.MESSAGEBUNDLE);
+	private static BehaveMessage bm = BehaveMessageFactory.getInstance().getBehaveMessage(BehaveConfig.MESSAGEBUNDLE);
 
 	void setSingletons(Hashtable<String, Object> singletons) {
 		this.singletons = singletons;

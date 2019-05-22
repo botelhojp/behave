@@ -44,11 +44,12 @@ import org.jbehave.core.reporters.PostStoryStatisticsCollector;
 import org.jbehave.core.reporters.TemplateProcessor;
 
 import br.gov.frameworkdemoiselle.behave.message.BehaveMessage;
+import br.gov.frameworkdemoiselle.behave.message.BehaveMessageFactory;
 import br.gov.frameworkdemoiselle.behave.parser.jbehave.JBehaveParser;
 
 public class ALMTemplateProcessor implements TemplateProcessor {
 
-	private static BehaveMessage message = new BehaveMessage(JBehaveParser.MESSAGEBUNDLE);
+	private static BehaveMessage message = BehaveMessageFactory.getInstance().getBehaveMessage(JBehaveParser.MESSAGEBUNDLE);
 	private Logger log = Logger.getLogger(ALMTemplateProcessor.class);
 
 	public ALMTemplateProcessor() {
